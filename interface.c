@@ -1,3 +1,9 @@
+/*Auteur: Camil
+Job: fonctions concernants l'interaction graphique avec le(s) joueurs
+Date:21/02
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <MLV/MLV_all.h>
