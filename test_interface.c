@@ -6,6 +6,9 @@
 
 int main() {
   int width=660, height=390;
+  MLV_Keyboard_button esc;
+  MLV_init_audio();
+  MLV_Music* music=MLV_load_music("assets/sounds/gameover.ogg");
   MLV_Image *image;
   int image_width, image_height;//, text_width, text_height;
   const char* text="Ordinateur Gagne! \n Esc pour retour menu.";
@@ -19,9 +22,14 @@ int main() {
   MLV_draw_text(width/3.5, height-90, text, MLV_COLOR_GREEN);
 
 
+  MLV_play_music(music, 1.0, -1);
   MLV_actualise_window();
-  MLV_wait_seconds(60); //MLV_KEYBOARD_ESCAPE = SDLK_ESCAPE
+  if(MLV_get_event(&esc, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)==MLV_KEYBOARD_ESCAPE){//MLV_KEYBOARD_ESCAPE = SDLK_ESCAPE
   MLV_free_image(image);
+  MLV_stop_music();
+  MLV_free_music(music);
+  MLV_free_audio();
   MLV_free_window();
   return 0;
+}
 }
