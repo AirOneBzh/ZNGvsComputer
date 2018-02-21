@@ -8,7 +8,9 @@ Date:21/02
 #include <stdlib.h>
 #include <MLV/MLV_all.h>
 
-
+void affiche_fin_IA(){};
+void affiche_fin_ZNG(){
+};
 
 int main() {
   int width=660, height=390;
