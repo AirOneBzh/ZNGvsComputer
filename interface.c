@@ -9,6 +9,7 @@ Date:21/02
 #include <MLV/MLV_all.h>
 
 
+
 int main() {
   int width=660, height=390;
   MLV_Image *image;

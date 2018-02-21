@@ -1,4 +1,4 @@
-TEST=test_interface
+TEST=interface
 
 CFLAGS = -g -O2 -Wall -Werror `pkg-config --cflags MLV`
 LDLIBS = `pkg-config --libs MLV`
