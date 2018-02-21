@@ -21,7 +21,7 @@ int main() {
 
   MLV_actualise_window();
   MLV_wait_seconds(60); //MLV_KEYBOARD_ESCAPE = SDLK_ESCAPE
-  MLV_free_image( image );
+  MLV_free_image(image);
   MLV_free_window();
   return 0;
 }
