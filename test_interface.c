@@ -10,7 +10,7 @@ int main() {
   int image_width, image_height;//, text_width, text_height;
   const char* text="Ordinateur Gagne! \n Esc pour retour menu.";
 
-  MLV_create_window( "Player vs Game", "sound", width, height);
+  MLV_create_window( "Player vs Game", "game", width, height);
   image = MLV_load_image( "assets/images/gameover.jpg" );
   MLV_resize_image_with_proportions(image, width, height);
   MLV_get_image_size(image, &image_width, &image_height);
