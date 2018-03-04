@@ -11,7 +11,7 @@
 
 //Description jeu
 void jeu();
-
+void init_plat();
 
 
 #endif /* end of include guard: JEU_H  */
