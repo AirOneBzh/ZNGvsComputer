@@ -1,2 +1,2 @@
-# ZNGvsComputer
-Team ZANGA vs Computer
+# zngOthello
+ZangOthello Ou reversi 
