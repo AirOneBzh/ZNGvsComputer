@@ -81,6 +81,7 @@ void dess_pions(int **tab){
 
 int att_souris_clav(int *x,int *y){
   MLV_Keyboard_button key;
+  fprintf(stdout,"fct x%d y%d\n",*x,*y);
   int c=MLV_get_window_height()/18;
   int kom;
   int nx=0;
@@ -88,16 +89,16 @@ int att_souris_clav(int *x,int *y){
   kom=MLV_wait_keyboard_or_mouse(&key,NULL,NULL,&nx,&ny);
   if(kom==MLV_KEY){
     if(key==MLV_KEYBOARD_UP){
-      y--;
+      (*y)--;
     }
     else if(key==MLV_KEYBOARD_DOWN){
-      y++;
+      (*y)++;
     }
     else if(key==MLV_KEYBOARD_RIGHT){
-      x++;
+      (*x)++;
     }
     else if(key==MLV_KEYBOARD_LEFT){
-      x--;
+      (*x)--;
     }
     else if(key==MLV_KEYBOARD_RETURN){
       return 1;
@@ -112,4 +113,17 @@ int att_souris_clav(int *x,int *y){
   }
 
   return 0;
+}
+/*
+  q sauvegarde et quitte
+  s sauvegarde
+  f fullscreen
+  echap menu
+  entrer = selection
+*/
+
+
+void dess_apercu_selec(int x,int y){
+  int c=MLV_get_window_height()/18;
+  MLV_draw_rectangle(c*(2*x+1),c*(2*y+1),2*c,2*c,MLV_COLOR_GRAY);
 }
