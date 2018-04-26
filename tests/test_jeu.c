@@ -10,8 +10,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../inc/jeu.h"
-#include "../inc/allocation.h"
+#include "../include/jeu.h"
+#include "../include/allocation.h"
 #include <string.h>
 #ifndef TEST
 #define TEST

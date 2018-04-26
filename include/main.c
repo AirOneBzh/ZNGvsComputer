@@ -9,10 +9,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../src/mon_erreur.h"
-#include "../src/allocation.h"
-#include "../src/jeu.h"
-#include "../src/interface.h"
+#include "../include/mon_erreur.h"
+#include "../include/allocation.h"
+#include "../include/jeu.h"
+#include "../include/interface.h"
 #include "MLV/MLV_all.h"
 
 int main(void) {

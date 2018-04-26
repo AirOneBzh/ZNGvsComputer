@@ -9,9 +9,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../src/mon_erreur.h"
-#include "../src/allocation.h"
-#include "../src/interface.h"
+#include "../include/mon_erreur.h"
+#include "../include/allocation.h"
+#include "../include/interface.h"
+#include "../include/jeu.h"
 #include "MLV/MLV_all.h"
 
 void init_pions(int **tab);

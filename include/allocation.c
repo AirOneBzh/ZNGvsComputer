@@ -1,24 +1,7 @@
-/**
-* Ficher impl�mentant des fonctions d'allocation et de liberation memoire
-*
-*4 fonctions propos�es
-*-allocation simple
-*-allocation et mise a zero
-*-reallocation, ne marche que sur une adresse ayant deja eu une allocation
-*-fonctions de liberation memoire:
-*        +qui met le pointeur de l'adresse a NULL a la fin, on passe l'adresse d'un pointeur type void ** - mais generateur de warning
-*        +qui met le pointeur de l'adresse a NULL mais a la fin, on passe toujours l'adresse d'un pointeur mais le type est void * qui correspond � n'importe quel pointeur, pas de warning
-*        +qui libere juste le pointeur donne en argument, similairement a libere
-*
-* hist:
-*  A. Habrard le 10/02/2014
-*         MAJ le 10/01/2017
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
-#include "../src/mon_erreur.h"
-#include "../src/allocation.h"
+#include "mon_erreur.h"
+#include "allocation.h"
 
 /*--------------------------------------------------------------------
 *fonction d'allocation de memoire du type defini par taille

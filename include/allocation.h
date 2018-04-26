@@ -1,12 +1,3 @@
-/**
- * Ficher implémentant des fonctions d'allocation et de liberation memoire
- *
- * hist:
- *  A. Habrard le 10/02/2014
- *  A. Habrard le 06/02/2017 MAJ
- */
-
-
 #ifndef _ALLOCATION_H_
 #define _ALLOCATION_H_
 
@@ -34,26 +25,11 @@ void * allocation_mem_init0(size_t nobjets,size_t taille);
  */
 void* reallocation_mem(void **pt, size_t nobjets,size_t taille);
 
-
-
 /*--------------------------------------------------------------------
- fonction qui libere de la memoire allouee en *pt
-  version pédagogique qui force à entrer un adresse de pointeur
-  mais qui nécessite un cast pour éviter un warning*/
-void libere_mem_peda(void **pt);
-
-/*--------------------------------------------------------------------
- fonction qui libere de la memoire allouee en *pt
- on suppose que pt est l'adresse de la variable allouée
- nécessaire pour pouvoir libéré.
+ *fonction qui libere de la memoire allouee à l'adresse mémoire 
+ * definie par (*pt) 
  */
-void libere_adr(void *pt);
-
-/*--------------------------------------------------------------------
- fonction qui libere de la memoire allouee en pt
- mais il n'y a pas de controle
- */
-void libere(void *pt);
+void libere_mem(void * *pt);
 
 #endif
 

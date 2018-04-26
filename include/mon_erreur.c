@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include "../src/mon_erreur.h"
+#include "../include/mon_erreur.h"
 
 
 /*----
