@@ -17,8 +17,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../inc/mon_erreur.h"
-#include "../inc/allocation.h"
+#include "../src/mon_erreur.h"
+#include "../src/allocation.h"
 
 /*--------------------------------------------------------------------
 *fonction d'allocation de memoire du type defini par taille

@@ -12,15 +12,18 @@ LDLIBS = `pkg-config --libs-only-l MLV`
 DEBUG = -Wall -std=c11 -g
 # -DDEBUG
 
-LISTEPROG = src/allocation.o src/mon_erreur.o src/jeu.o src/interface.o src/main.o
+LISTEPROG = src/allocation.o src/mon_erreur.o src/interface.o src/jeu.o src/main.o
 SRC= $(wildcard src/*.c)
 OBJ= $(SRC:.c=.o)
 
 all:clean prog propre
 
+PATH_SRC=../src/
+LISTETEST=  $(PATH_SRC)allocation.o $(PATH_SRC)mon_erreur.o $(PATH_SRC)interface.o $(PATH_SRC)jeu.o test_jeu.o
+test: clean prog_test propre
 
-LISTETEST= test_jeu.o
-test: clean cd $(LISTETEST) propre
+prog_test: $(LISTETEST)
+	@$(CC) $^ -o $@ $(lDFLAGS) $(CFLAGS) $(LDLIBS)
 
 cd:
 	cd tests
