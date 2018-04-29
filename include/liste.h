@@ -1,19 +1,13 @@
-
-
 #ifndef _LISTE_H_
 #define _LISTE_H_
-
-#include <stdio.h>
-#include "allocation.h"
-#include "mon_erreur.h"
 
 typedef int element;
 
 typedef struct cellule{
-    int couleur[8][8];
-    int note;
- struct cellule * suivant;
+element objet;
+struct cellule * suivant;
 }struct_cellule;
+
 typedef struct_cellule * liste;
 
 /* renvoie la liste vide */
@@ -23,20 +17,16 @@ liste liste_vide();
 int est_liste_vide(liste l);
 
 /*ajoute un element elem a la liste l */
-liste insere_element_liste(liste l, element elem);
+liste inserer_element_liste(liste l, element elem);
 
 /* renvoie le premier element de la liste l */
 element renvoie_premier_liste(liste l);
 
-/*renvoie la suite de la liste*/
-liste renvoie_suite(liste l);
-
 /* supprime la premiere cellule de la liste l */
-liste supprimer_premier_liste(liste l);
+liste supprimer_element_liste(liste l);
 
-/*affichage d'une liste*/
-void affiche_liste(liste l);
+//pour l'implémentation de la fonction minmax
+element min_liste(liste l); //retourne min de la liste
+element max_liste(liste l); //retourne max de la liste
 
-/*fonction d'ordre sur les elements*/
-int est_avant(element e1,element e2);
 #endif
