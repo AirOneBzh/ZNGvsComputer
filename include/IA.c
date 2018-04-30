@@ -20,7 +20,7 @@ int evaluation(int couleur, int **plateau){
 	return pions[0]-pions[1];
     return pions[1]-pions[0];
 }
-//TODO
+
 int minmax(int couleur, int min, int **plateau, int prof, liste l)
 {//A LA FIN DU PROG ON CONNAIT LA NOTE POUR UN COUP choisie
     int plateau_bis[10][10];
@@ -43,6 +43,33 @@ int minmax(int couleur, int min, int **plateau, int prof, liste l)
     
 }
 
+int alpha_beta(int couleur, int min, int **plateau, int alpha, int beta, liste l){
+    int plateau_bis[10][10];
+    int i, j;
+    memcpy(plateau, plateau_bis, sizeof(plateau));
+    if( est_fini_partie(couleur, plateau_bis) )
+	l= inserer_element_liste(l, evaluation(couleur, plateau));
+    else{ //pour tous les successeurs
+	for( i=1; i <= 8 ; i++ )
+	    for( j=1; j <= 8; j++){
+		if(couleur==min){
+		    if( coup_valide(couleur, i, j, plateau_bis)){
+			plateau_bis[x][y]=couleur;
+			l=inserer_element_liste(l, beta);
+			l=inserer_element_liste(l, alpha_beta(opposant(couleur), min, plateau_bis, alpha, beta, l));
+			beta=min_liste(l);
+			if( alpha >= beta )return beta;
+		    }
+		}
+		    else{
+			if ( coup_valide(couleur, i, j, plateau_bis) )
+			
+			
+			
+		}
+		else{
+		    
+					    
 
 int **jouer_coup_niveau0(int couleur, int plateau){
     int i, j;
