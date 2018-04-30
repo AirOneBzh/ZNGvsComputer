@@ -48,28 +48,35 @@ int alpha_beta(int couleur, int min, int **plateau, int alpha, int beta, liste l
     int i, j;
     memcpy(plateau, plateau_bis, sizeof(plateau));
     if( est_fini_partie(couleur, plateau_bis) )
-	l= inserer_element_liste(l, evaluation(couleur, plateau));
+	return evaluation(couleur, plateau);
     else{ //pour tous les successeurs
 	for( i=1; i <= 8 ; i++ )
 	    for( j=1; j <= 8; j++){
 		if(couleur==min){
 		    if( coup_valide(couleur, i, j, plateau_bis)){
-			plateau_bis[x][y]=couleur;
+			plateau_bis[i][i]=couleur;
 			l=inserer_element_liste(l, beta);
 			l=inserer_element_liste(l, alpha_beta(opposant(couleur), min, plateau_bis, alpha, beta, l));
 			beta=min_liste(l);
-			if( alpha >= beta )return beta;
+			if( alpha >= beta )
+			    return alpha;
+			return beta;
 		    }
 		}
-		    else{
-			if ( coup_valide(couleur, i, j, plateau_bis) )
-			
-			
-			
+		else{ //couleur == opposant(min)
+		    if ( coup_valide(couleur, i, j, plateau_bis) ){
+			plateau_bis[i][j]=couleur;
+			l=inserer_element_liste(l, alpha);
+			l=inserer_element_liste(l, alpha_beta(opposant(couleur), min, plateau_bis, alpha, beta, l));
+			alpha=max_liste(l);
+			if(alpha >= beta)
+			    return beta;
+			return alpha;   
+		    }
 		}
-		else{
-		    
-					    
+	    }
+    }
+}
 
 int **jouer_coup_niveau0(int couleur, int plateau){
     int i, j;
@@ -114,13 +121,34 @@ int jouer_coup_niveau2(int couleur, int **plateau, int prof){
     int note = INT_MIN;
     for(i=1; i<=8; i++)
 	for(j=1; j<=8; j++)
-	    if(coup_valide(couleur, i, j, plateau)){//stock les notes
+	    if(coup_valide(couleur, i, j, plateau)){//stocker les notes
 		memcpy(plateau, plateau_bis, sizeof(plateau));
 		plateau_bis[i][j]=couleur;
 		if( minmax(opposant(couleur), plateau_bis, prof-1) > note ){
 		    x=i;
 		    y=j;
 		    note = minmax(opposant(couleur), plateau_bis, prof-1);
+		}
+	    }
+    plateau[x][y]=couleur;
+    return plateau;
+}
+
+int jouer_coup_niveau3(int couleur, int **plateau){
+    liste l=liste_vide();
+    int **plateau_bis;
+    memcpy(plateau, plateau_bis, sizeof(plateau));
+    int i, j, x, y;
+    int note = INT_MIN;
+       for(i=1; i<=8; i++)
+	for(j=1; j<=8; j++)
+	    if(coup_valide(couleur, i, j, plateau)){//stocker les notes
+		memcpy(plateau, plateau_bis, sizeof(plateau));
+		plateau_bis[i][j]=couleur;
+		if( alpha_beta(opposant(couleur), plateau_bis, INT_MIN, INT_MAX, l) > note ){
+		    x=i;
+		    y=j;
+		    note = alpha_beta(opposant(couleur), plateau_bis, INT_MIN, INT_MAX, l);
 		}
 	    }
     plateau[x][y]=couleur;
