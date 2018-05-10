@@ -9,11 +9,17 @@
 #define INTERFACE_H
 #include "jeu.h"
 
-// affiche écran de fin IA l'emporte
-void affiche_fin_IA();
+
+// Créer une fenetre de taille hauteur * largeur
+void creer_fenetre(int hauteur,int largeur,infos info);
+
+// Dessine les infos complémentaires au jeu
+void dess_infos(infos i);
 
 // affiche écran de fin ZNG l'emporte
 void affiche_fin_ZNG();
+
+int hauteur_fenetre();
 
 //
 int  fin();

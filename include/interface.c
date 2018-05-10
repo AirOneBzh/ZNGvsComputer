@@ -16,12 +16,16 @@
 #include <MLV/MLV_all.h>
 #include "interface.h"
 
+int hauteur_fenetre(){
 
-void affiche_fin_IA()  {}
+}
 
-void affiche_fin_ZNG() {}
+void creer_fenetre(int hauteur,int largeur,info infos){
+  MLV_create_window("zngOthello", "", largeur, hauteur);
+  dess_plat();
+  dess_info(infos);
+}
 
-// diff??
 
 int fin() {
   int h = MLV_get_window_height();
@@ -51,9 +55,8 @@ void dess_plat() {
   int h = MLV_get_window_height();
   int c = h / 18;
   int i;
-
-  MLV_clear_window(MLV_COLOR_BLACK);
-  MLV_clear_window(MLV_rgba(100, 200, 150, 100));
+  draw_filled_rectangle(0,0,h,h,MLV_rgba(100, 200, 150, 100));
+  // MLV_clear_window(MLV_rgba(100, 200, 150, 100));
   MLV_draw_rectangle(c, c, 16 * c, 16 * c, MLV_COLOR_WHITE);
 
   for (i = 1; i < 8; i++) {
@@ -68,6 +71,17 @@ void dess_plat() {
                   c + c * 2 * i,
                   MLV_COLOR_WHITE);
   }
+  MLV_actualise_window();
+
+}
+
+void dess_info(infos i){
+MLV_draw_filled_rectangle(0,h,h,w-h,MLV_rgba(100, 200, 150, 100));
+//MLV_darw_text
+}
+
+void free_jeu(){
+  MLV_free_window();
 }
 
 // Dessine les pions tels que disposés dans tab([8][8])
@@ -97,6 +111,18 @@ void dess_pions(int **tab) {
       }
     }
   }
+  MLV_actualise_window();
+
+}
+
+void pose_pion_fail(int x,int y){
+  int h = MLV_get_window_height();
+  int c = h / 18;
+  MLV_draw_rectangle(c * (2 * x + 1),
+  c * (2 * y + 1),
+  2 * c,
+  2 * c,
+  MLV_COLOR_RED);
 }
 
 int att_souris_clav(int *x, int *y) {
@@ -161,6 +187,8 @@ int att_souris_clav(int *x, int *y) {
    echap menu
    entrer = selection
  */
+
+ // Carré de couleur selection clavier
 void dess_apercu_selec(int x, int y) {
   int c = MLV_get_window_height() / 18;
 
@@ -169,6 +197,7 @@ void dess_apercu_selec(int x, int y) {
                      2 * c,
                      2 * c,
                      MLV_COLOR_RED);
+                     MLV_actualise_window();
 }
 
 /******************/
