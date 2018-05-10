@@ -16,7 +16,19 @@
 #define BLANC 2
 
 #endif
+<<<<<<< HEAD
 #include "liste.h"
+=======
+
+typedef struct {
+char *joueur_1;
+char *joueur_2;
+int *nb_pions;
+}info;
+
+//avoir la couleur de l'ennemi
+int opposant(int couleur);
+>>>>>>> f409ba191c2cbb0cf80ffc09b208305bea4ea5d2
 
 //Description jeu
 void jeu();
@@ -25,7 +37,7 @@ void jeu();
 void init_pions(int **plateau);
 
 //poser un pion
-int pose_pion(int j,int x,int y,int **plateau);
+int pose_pion(int couleur, int x, int y, int **plateau);
 
 
 //fonctions de vérification d'enncadrement d'un pion ennemi

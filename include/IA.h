@@ -2,8 +2,6 @@
 #define _IA_H
 
 
-//avoir la couleur de l'ennemi
-int opposant(int couleur);
 
 //fonction d'évaluation simple
 //on peur l'améliorer
