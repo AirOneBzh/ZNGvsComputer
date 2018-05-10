@@ -9,26 +9,34 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/mon_erreur.h"
-#include "../include/allocation.h"
-#include "../include/jeu.h"
-#include "../include/interface.h"
-#include "MLV/MLV_all.h"
+#include "mon_erreur.h"
+#include "allocation.h"
+#include "jeu.h"
+#include "interface.h"
 
 int main(void) {
-  int dh = MLV_get_desktop_height();
-  int h  = 0.5 * dh;
-  int w  = 3 * h / 4;
+  // creer fenetre menu -> interface.c
 
-  MLV_create_window("Menu zngOthello", "2", w, h);
-  MLV_clear_window(MLV_rgba(100, 200, 150, 100));
-  bouton(1,    "Jouer");
-  bouton(2.75, "Règles");
-  bouton(4.5,  "3");
-  bouton(6.25, "4");
+  int j = 1, x, c;
 
-  MLV_actualise_window();
-  MLV_wait_seconds(5);
-  MLV_free_window();
-  jeu();
+  while (j == 1) {
+    // lance le jeu
+    bouton(   1, "Jouer");
+
+    // affiche les règles
+    bouton(2.75, "Règles");
+
+    // Modifie apparence fenetre
+    // taille
+    bouton( 4.5, "Fenetre");
+
+    // modifie Joueur 1 -> IA nom
+    bouton(6.25, "Joueurs");
+
+    c = att_souris_menu(&x);
+
+    // free_fen_menu
+    MLV_free_window();
+    jeu();
+  }
 }

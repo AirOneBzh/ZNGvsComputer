@@ -17,12 +17,6 @@
 #include "interface.h"
 
 
-void affiche_fin_IA()  {}
-
-void affiche_fin_ZNG() {}
-
-// diff??
-
 int fin() {
   int h = MLV_get_window_height();
   int w = MLV_get_window_width();
@@ -175,6 +169,16 @@ void dess_apercu_selec(int x, int y) {
 /* Interface Menu */
 /******************/
 
+void creer_fen_menu() {
+  int dh = MLV_get_desktop_height();
+  int h  = 0.5 * dh;
+  int w  = 3 * h / 4;
+
+  MLV_create_window("Menu zngOthello", "2", w, h);
+  MLV_clear_window(MLV_rgba(100, 200, 150, 100));
+  MLV_actualise_window();
+}
+
 void bouton(float x, char *text) {
   int h = MLV_get_window_height();
   int w = MLV_get_window_width();
@@ -187,4 +191,19 @@ void bouton(float x, char *text) {
   MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, MLV_COLOR_BLACK);
   MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, MLV_COLOR_WHITE);
   MLV_draw_text_with_font(2 * c, c * (x + 1), text, font, MLV_COLOR_BLACK);
+}
+
+int att_souris_menu(int *x) {
+  int nx, ny;
+
+  MLV_wait_keyboard_or_mouse(NULL, NULL, NULL, &nx, &ny);
+
+  if ((nx < 0) && (ny < 0) && (nx > 0) && (ny > 0)) {
+    *x = 1;
+    return 0;
+  } else {
+    fprintf(stderr, "x%d y%d\n", nx, ny);
+  }
+
+  return 0;
 }

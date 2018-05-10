@@ -38,4 +38,6 @@ void dess_apercu_selec(int x,
 void bouton(float x,
             char *text);
 
+int att_souris_menu(int *x);
+
 #endif /* end of include guard: INTERFACE_H  */

@@ -1,19 +1,19 @@
 /*
  *   Source JEU_C
  *   Fonctionnalités:
- *   Dessiner le plateau de jeu et gérer les manip du tableau de pions
+ *   Dessiner le plateau de jeu et gérer les manip du plateauleau de pions
  *   Auteur: airone@airone-debian (E. LE CORNEC)
  *   Création :04/03/18
- *   MODIFICATION camil les "tab" deviennent "plateau"
+ *   MODIFICATION camil les "plateau" deviennent "plateau"
  */
 
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/mon_erreur.h"
-#include "../include/allocation.h"
-#include "../include/interface.h"
-#include "../include/jeu.h"
+#include "mon_erreur.h"
+#include "allocation.h"
+#include "interface.h"
+#include "jeu.h"
 #include "MLV/MLV_all.h"
 
 void init_pions(int **plateau);
@@ -43,7 +43,7 @@ void jeu() {
   int   x, y, jb = 1, j;
   int   f = 0;
 
-  x   = y = 0;
+  x       = y = 0;
   plateau = allocation_mem(10, sizeof(int *));
 
   // menu
@@ -51,8 +51,8 @@ void jeu() {
     plateau[i] = allocation_mem_init0(10, sizeof(int));
   }
 
-  // si menu load > tab = fich sinon init_pions
-  init_pions(tab);
+  // si menu load > plateau = fich sinon init_pions
+  init_pions(plateau);
   MLV_create_window("zngOthello", "", w, h);
   dess_plat();
   dess_apercu_selec(0, 0);
@@ -92,18 +92,18 @@ void jeu() {
     // touche s -> save
     case -2:
 
-      // save(tab);
+      // save(plateau);
       break;
 
     // save puis Quit
     case -1:
 
-      // save(tab)
+      // save(plateau)
       MLV_free_window();
       exit(0);
     }
 
-    dess_pions(tab);
+    dess_pions(plateau);
     MLV_actualise_window();
 
 
@@ -114,7 +114,7 @@ void jeu() {
   MLV_free_window();
 }
 
-void init_pions(int **tab) {
+void init_pions(int **plateau) {
   int i, j;
 
   for (i = 1; i <= 8; i++) {
@@ -141,194 +141,192 @@ int pose_pion(int j, int x, int y, int **plateau) {
   }
 }
 
-int cap_haut(int couleur, int i, int j, int **plateau){
-    if( i <= 2)
-	return 0;
-    int i_bis;
-    i_bis=i-2;
-    while( i_bis != 0 ){
-	if( plateau[i_bis][j] == couleur )
-	    return 1;
-	if( plateau[i_bis][j] == VIDE)
-	    return 0;
-	else
-	    i_bis-=1;
+int cap_haut(int couleur, int i, int j, int **plateau) {
+  if (i <= 2) return 0;
+
+  int i_bis;
+  i_bis = i - 2;
+
+  while (i_bis != 0) {
+    if (plateau[i_bis][j] == couleur) return 1;
+
+    if (plateau[i_bis][j] == VIDE) return 0;
+    else i_bis -= 1;
+  }
+  return 0;
+}
+
+int cap_bas(int couleur, int i, int j, int **plateau) {
+  if (i >= 7) return 0;
+
+  int i_bis;
+  i_bis = i + 2;
+
+  while (i_bis != 9) {
+    if (plateau[i_bis][j] == couleur) return 1;
+
+    if (plateau[i_bis][j] == VIDE) return 0;
+    else i_bis += 1;
+  }
+  return 0;
+}
+
+int cap_droit(int couleur, int i, int j, int **plateau) {
+  if (j >= 7) return 0;
+
+  int j_bis;
+  j_bis = j + 2;
+
+  while (j_bis != 9) {
+    if (plateau[i][j_bis] == couleur) return 1;
+
+    if (plateau[i][j_bis] == VIDE) return 0;
+    else j_bis += 1;
+  }
+  return 0;
+}
+
+int cap_gauche(int couleur, int i, int j, int **plateau) {
+  if (j <= 2) return 0;
+
+  int j_bis;
+  j_bis = j - 2;
+
+  while (j_bis != 0) {
+    if (plateau[i][j_bis] == couleur) return 1;
+
+    if (plateau[i][j_bis] == VIDE) return 0;
+    else j_bis -= 1;
+  }
+  return 0;
+}
+
+int cap_diag_haut_droit(int couleur, int i, int j, int **plateau) {
+  int i_bis = i - 2, j_bis = j + 2;
+
+  if ((j >= 2) || (i <= 2)) return 0;
+
+  /* TODO */
+  while (i_bis != 0 || j_bis != 8) {
+    if (plateau[i_bis][j_bis] == couleur) return 1;
+
+    if (plateau[i_bis][j_bis] == VIDE) return 0;
+    else {
+      i_bis -= 1;
+      j_bis += 1;
     }
-    return 0;
+  }
+  return 0;
 }
-    
-int cap_bas(int couleur, int i, int j, int **plateau){
-    if( i >=7 )
-	return 0;
-    int i_bis;
-    i_bis=i+2;
-    while( i_bis != 9 ){
-	if( plateau[i_bis][j] == couleur )
-	    return 1;
-	if( plateau[i_bis][j] == VIDE )
-	    return 0;
-	else
-	    i_bis+=1;
+
+int cap_diag_haut_gauche(int couleur, int i, int j, int **plateau) {
+  int i_bis = i - 2, j_bis = j - 2;
+
+  if ((j <= 2) || (i <= 2)) return 0;
+
+  while (i_bis != 0 || j_bis != 0) {
+    if (plateau[i_bis][j_bis] == couleur) return 1;
+
+    if (plateau[i_bis][j_bis] == VIDE) return 0;
+    else {
+      i_bis -= 1;
+      j_bis -= 1;
     }
-    return 0;
+  }
+  return 0;
 }
 
-int cap_droit(int couleur, int i, int j, int **plateau){
-    if( j >=7 )
-	return 0;
-    int _bis;
-    j_bis=j+2;
-    while( j_bis != 9 ){
-	if( plateau[i][j_bis] == couleur )
-	    return 1;
-	if( plateau[i][j_bis] == VIDE )
-	    return 0;
-	else
-	    j_bis+=1;
+int cap_diag_bas_droit(int couleur, int i, int j, int **plateau) {
+  int i_bis = i + 2, j_bis = j + 2;
+
+  if ((j >= 7) || (i >= 7)) return 0;
+
+  while (i_bis != 9 || j_bis != 9) {
+    if (plateau[i_bis][j_bis] == couleur) return 1;
+
+    if (plateau[i_bis][j_bis] == VIDE) return 0;
+    else {
+      i_bis += 1;
+      j_bis += 1;
     }
-    return 0;
+  }
+  return 0;
 }
 
-int cap_gauche(int couleur, int i, int j, int **plateau){
-    if( j <= 2 )
-	return 0;
-    int j_bis;
-    j_bis=j-2;
-    while( j_bis != 0 ){
-	if( plateau[i][j_bis] == couleur )
-	    return 1;
-	if( plateau[i][j_bis] == VIDE )
-	    return 0;
-	else
-	    j_bis-=1;
+int cap_diag_bas_gauche(int couleur, int i, int j, int **plateau) {
+  int i_bis = i + 2, j_bis = j - 2;
+
+  if ((j <= 2) || (i >= 7)) return 0;
+
+  while (i_bis != 9 || j_bis != 0) {
+    if (plateau[i_bis][j_bis] == couleur) return 1;
+
+    if (plateau[i_bis][j_bis] == VIDE) return 0;
+    else {
+      i_bis += 1;
+      j_bis -= 1;
     }
-    return 0;
+  }
+  return 0;
 }
-    
-int cap_diag_haut_droit(int couleur, int i, int j, int **plateau){
-    int i_bis=i-2, j_bis=j+2;
-    if( j >= || i <=2 )
-	return 0;
-    while( i_bis != 0 || j_bis != 8){
-	if( plateau[i_bis][j_bis] == couleur )
-	    return 1;
-	if ( plateau[i_bis][j_bis] == VIDE )
-	    return 0;
-	else{
-	    i_bis-=1;
-	    j_bis+=1;
-	}
+
+int a_voisin(int i, int j, int **plateau) {
+  // si on est au bord du plateau
+  int vois;
+
+  vois =
+    plateau[i - 1][j - 1] +
+    plateau[i - 1][j] +
+    plateau[i - 1][j + 1] +
+    plateau[i][j - 1] +
+    plateau[i][j + 1] +
+    plateau[i + 1][j - 1] +
+    plateau[i + 1][j] +
+    plateau[i + 1][j + 1];
+
+  if (vois > 0) return 1;
+
+  return 0;
+}
+
+int coup_valide(int couleur, int i, int j, int **plateau) {
+  if (a_voisin(i, j, plateau))
+    return
+      cap_haut(couleur, i, j, plateau) ||
+      cap_bas(couleur, i, j, plateau) ||
+      cap_droit(couleur, i, j, plateau) ||
+      cap_gauche(couleur, i, j, plateau) ||
+      cap_diag_haut_droit(couleur, i, j, plateau) ||
+      cap_diag_haut_gauche(couleur, i, j, plateau) ||
+      cap_diag_bas_droit(couleur, i, j, plateau) ||
+      cap_diag_bas_gauche(couleur, i, j, plateau);
+  else return 0;
+}
+
+int* nb_pions(int **plateau) {
+  int i, j, B = 0, N = 0;
+  int blanc_noir[2];
+
+  for (i = 1; i <= 8; i++)
+    for (j = 1; j <= 8; j++) {
+      if (plateau[i][j] == BLANC) B++;
+
+      if (plateau[i][j] == NOIR) N++;
     }
-    return 0;
+  blanc_noir[0] = B;
+  blanc_noir[1] = N;
+  return blanc_noir;
 }
 
-int cap_diag_haut_gauche(int couleur, int i, int j, int **plateau);
-    int i_bis=i-2, j_bis=j-2;
-    if( j <= 2 || i <=2 )
-	return 0;
-    while( i_bis != 0 || j_bis != 0 ){
-	if( plateau[i_bis][j_bis] == couleur )
-	    return 1;
-	if (plateau[i_bis][j_bis] == VIDE )
-	    return 0;
-	else {
-	    i_bis-=1;
-	    j_bis-=1;
-	}
-    }
-    return 0;
-}
+int est_fini_partie(int couleur, int **plateau) {
+  int *etat = nb_pions(plateau);
+  int  i, j;
 
+  if (etat[0] + etat[1] == 64) return 1;
 
-int cap_diag_bas_droit(int couleur, int i, int j, int **plateau);
-    int i_bis=i+2, j_bis=j+2;
-    if( j >=7 || i >= 7 )
-	return 0;
-    while( i_bis != 9 || j_bis != 9 ){
-	if( plateau[i_bis][j_bis] == couleur )
-	    return 1;
-	if ( plateau[i_bis][j_bis] == VIDE )
-	    return 0;
-	else {
-	    i_bis+=1;
-	    j_bis+=1;
-	}
-    }
-return 0;
-}
+  for (i = 1; i <= 8; i++)
+    for (j = 1; j <= 8; j++)
+      if (coup_valide(couleur, i, j, plateau)) return 0;
 
-
-int cap_diag_bas_gauche(int couleur, int i, int j, int **plateau){
-    int i_bis=i+2, j_bis=j-2;
-    if( j <=2 || i >= 7 )
-	return 0;
-    while( i_bis != 9 || j_bis != 0 ){
-	if( plateau[i_bis][j_bis] == couleur )
-	    return 1;
-	if (plateau[i_bis][j_bis] == VIDE )
-	    return 0;
-	else{
-	    i_bis+=1;
-	    j_bis-=1;
-	}
-    }
-    return 0;
+  return 1;
 }
-
-int a_voisin(int i, int j, int **plateau){
-    //si on est au bord du plateau
-    int vois;
-    vois =
-	plateau[i-1][j-1]+
-	plateau[i-1][j]+
-	plateau[i-1][j+1]+
-	plateau[i][j-1]+
-	plateau[i][j+1]+
-	plateau[i+1][j-1]+
-	plateau[i+1][j]+
-	plateau[i+1][j+1];
-    if( vois > 0)
-	return 1;
-    return 0;
-}
-
-int coup_valide(int couleur, int i, int j, int **plateau){
-    if ( a_voisin(i, j, plateau) )
-	return
-	    cap_haut( couleur,  i,  j,  plateau) ||
-	    cap_bas( couleur,  i,  j,  plateau) ||
-	    cap_droit( couleur,  i,  j,  plateau) ||
-	    cap_gauche( couleur,  i,  j,  plateau) ||
-	    cap_diag_haut_droit( couleur,  i,  j,  plateau) ||
-	    cap_diag_haut_gauche( couleur,  i,  j,  plateau) ||
-	    cap_diag_bas_droit( couleur,  i,  j,  plateau) ||
-	    cap_diag_bas_gauche( couleur,  i,  j,  plateau); 
-}
-    
-int *nb_pions(int **plateau){
-    int i, j, B=0, N=0;
-    int blanc_noir[2];
-    for(i=1; i<=8; i++)
-	for(j=1; j<=8; j++){
-	    if(plateau[i][j]==BLANC)
-		B++;
-	    if(plateau[i][j]==NOIR)
-		N++;
-	}
-    blanc_noir[0]=B;
-    blanc_noir[1]=N;
-    return blanc_noir;
-}
-
-int est_fini_partie(int couleur, int **plateau){
-    int *etat=nb_pions(plateau);
-    int i, j;
-    if(etat[0]+etat[1]==64)
-	return 1;
-    for(i=1; i<=8; i++)
-	for(j=1; j<=8; j++)
-	    if(coup_valide(couleur, i, j, plateau))
-		return 0;
-    return 1;
-}
-	    

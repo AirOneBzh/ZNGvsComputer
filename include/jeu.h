@@ -16,7 +16,7 @@
 #define BLANC 2
 
 #endif
-
+#include "liste.h"
 
 //Description jeu
 void jeu();
