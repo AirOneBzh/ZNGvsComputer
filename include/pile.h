@@ -16,7 +16,7 @@ pile pile_vide();
 int est_pile_vide(pile p);
 
 //jouer un coup et l'empiler
-pile ajoute_coup(int **plateau, pile P);
+pile ajoute_coup(int color, int i, int j, int **plateau, pile P);
 
 
 //retire un coup de la pile(depile) et du plateau

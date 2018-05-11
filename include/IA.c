@@ -5,6 +5,7 @@
 #include "AI.h"
 #include "jeu.h"
 #include "liste.h"
+#include "pile.h"
 #define COEF 500
 #define INF INT_MAX
 
@@ -122,7 +123,7 @@ int **jouer_coup_niveau1(int couleur, int **plateau){
     plateau[x][y]=couleur;
     return plateau;
 }
-int jouer_coup_niveau2 (int couleur, int **plateau, int prof){
+int **jouer_coup_niveau2 (int couleur, int **plateau, int prof){
   //C'EST A couleur DE JOUER
   liste l=liste_vide();
   int **plateau_bis;
@@ -144,23 +145,62 @@ int jouer_coup_niveau2 (int couleur, int **plateau, int prof){
   return plateau;
 }
 
-int jouer_coup_niveau3(int couleur, int **plateau){
-    liste l=liste_vide();
-    int **plateau_bis;
-    memcpy(plateau, plateau_bis, sizeof(plateau));
-    int i, j, x, y;
-    int note = INT_MIN;
-       for(i=1; i<=8; i++)
-	for(j=1; j<=8; j++)
-	    if(coup_valide(couleur, i, j, plateau)){//stocker les notes
-		memcpy(plateau, plateau_bis, sizeof(plateau));
-		plateau_bis[i][j]=couleur;
-		if( alpha_beta(opposant(couleur), plateau_bis, INT_MIN, INT_MAX, l) > note ){
-		    x=i;
-		    y=j;
-		    note = alpha_beta(opposant(couleur), plateau_bis, INT_MIN, INT_MAX, l);
-		}
-	    }
-    plateau[x][y]=couleur;
-    return plateau;
-}
+ int **jouer_coup_niveau3(int couleur, int **plateau){
+     liste l=liste_vide();
+     int **plateau_bis;
+     memcpy(plateau, plateau_bis, sizeof(plateau));
+     int i, j, x, y;
+     int note = INT_MIN;
+     for(i=1; i<=8; i++)
+	 for(j=1; j<=8; j++)
+	     if(coup_valide(couleur, i, j, plateau)){//stocker les notes
+		 memcpy(plateau, plateau_bis, sizeof(plateau));
+		 plateau_bis[i][j]=couleur;
+		 if( alpha_beta(opposant(couleur), plateau_bis, INT_MIN, INT_MAX, l) > note ){
+		     x=i;
+		     y=j;
+		     note = alpha_beta(opposant(couleur), plateau_bis, INT_MIN, INT_MAX, l);
+		 }
+	     }
+     plateau[x][y]=couleur;
+     return plateau;
+ }
+
+ int **jouer_coup_niveau4(int couleur, int **plateau, pile Chemin, pile coup, int eval, int betterX, int betterY){
+     int i, j;
+     for(i=1; i<=8; i++){
+	 for(j=1; j<=8; j++){
+	     if(coup_valide(couleur, i, j, plateau) ){
+		 if(  !est_finie_partie(couleur, plateau) ){
+		     Chemin=ajoute_coup(plateau, couleur, i, j, plateau, Chemin);
+		     jouer_coup_niveau4(opposant(couleur), plateau, Chemin, eval, betterX, betterY);
+		 }
+	     
+		 else { //la partie est finie on arrête d'empiler
+		     if(eval<evaluation(couleur, plateau) ){ //on a trouvé un meileur coup!
+			 eval=evaluation(couleur, plateau);
+			 //on enlève tous les coups "test" joués
+			 while( !est_pile_vide(Chemin->suivant) )
+			     Chemin=retire_coup(plateau, Chemin);
+			 //puis on récupère le coup à jouer
+			 betterX=Chemin->x;
+			 betterY=Chemin->y;
+			 Chemin=retire_coup(plateau, Chemin);
+		     }
+		     while( !est_pile_vide(couleur, plateau) )
+			 Chemin=retire_coup(plateau, Chemin);
+		 }
+	     }//fin de test si (i, j) est un coup valide	     
+	 }//fin for y
+     }//fin for i
+      //on vérifie si notre pile de coup possible est vide
+     if( est_pile_vide(coup) ){//elle est vide on joue le meilleur coup
+	 plateau[betterX][betterY]=couleur;
+     }
+     else{ //le plateau n'est pas vide on continue de chercher d'autres possibilités
+	 coup=retire_coup(plateau, coup);
+	 plateau=jouer_coup_niveau4(couleur, plateau, Chemin, eval, betterX, betterY);
+     }
+     return plateau;
+ }//end function
+	     

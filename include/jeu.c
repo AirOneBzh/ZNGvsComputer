@@ -335,13 +335,13 @@ int *nb_pions(int **plateau){
 }
 
 int est_fini_partie(int couleur, int **plateau){
-  int *etat=nb_pions(plateau);
-  int i, j;
-  if(etat[0]==64)
-  return 1;
-  for(i=1; i<=8; i++)
-  for(j=1; j<=8; j++)
-  if(coup_valide(couleur, i, j, plateau))
-  return 0;
-  return 1;
+    int *etat=nb_pions(plateau);
+    int i, j;
+    if(etat[0]==64)
+	return 1;
+    for(i=1; i<=8; i++)
+	for(j=1; j<=8; j++)
+	    if(coup_valide(couleur, i, j, plateau))
+		return 0;
+    return 1;
 }
