@@ -16,9 +16,7 @@
 #define BLANC 2
 
 #endif
-<<<<<<< HEAD
 #include "liste.h"
-=======
 
 typedef struct {
 char *joueur_1;
@@ -28,7 +26,6 @@ int *nb_pions;
 
 //avoir la couleur de l'ennemi
 int opposant(int couleur);
->>>>>>> f409ba191c2cbb0cf80ffc09b208305bea4ea5d2
 
 //Description jeu
 void jeu();
