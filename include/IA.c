@@ -51,7 +51,7 @@ int alpha_beta(int couleur, int min, int **plateau, int alpha, int beta, liste l
 	    for( j=1; j <= 8; j++){
 		if(couleur==min){
 		    if( coup_valide(couleur, i, j, plateau_bis)){
-			plateau_bis[i][i]=couleur;
+			plateau_bis[i][j]=couleur;
 			l=inserer_element_liste(l, beta);
 			l=inserer_element_liste(l, alpha_beta(opposant(couleur), min, plateau_bis, alpha, beta, l));
 			beta=min_liste(l);
@@ -71,19 +71,10 @@ int alpha_beta(int couleur, int min, int **plateau, int alpha, int beta, liste l
 			return alpha;   
 		    }
 		}
-	    }
-    }
+	    }//fin for j
+    }//fin for i
+    return EXIT_FAILURE;//pas possible
 }
-
-
-
-}
-      else{
-      }
-}
-}
-}
-
 int **jouer_coup_niveau0(int couleur, int plateau){
     int i, j;
     srand(time(NULL));
