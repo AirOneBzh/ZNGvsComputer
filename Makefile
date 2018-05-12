@@ -12,7 +12,7 @@ LDLIBS = `pkg-config --libs-only-l MLV`
 DEBUG = -Wall -std=c11 -g
 # -DDEBUG
 
-LISTEPROG = include/allocation.o include/mon_erreur.o include/interface.o include/jeu.o include/main.o
+LISTEPROG = include/allocation.o include/mon_erreur.o include/interface.o include/jeu.o include/pile.o include/liste.o include/IA.o include/main.o
 SRC= $(wildcard include/*.c)
 OBJ= $(SRC:.c=.o)
 
@@ -47,5 +47,3 @@ obj/%do:include/%c
 clean :
 	@rm -f include/*.o include/*.do prog progdebug
 
-propre :
-	@rm -f include/*.o
