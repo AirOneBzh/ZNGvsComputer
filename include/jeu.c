@@ -127,7 +127,7 @@ int pose_pion(int couleur, int x, int y, int **plateau) {
 }
 //OK
 int cap_haut(int couleur, int i, int j, int **plateau){
-    int i_bis=i-2, adv=0;
+    int i_bis=i-1, adv=0;
     while( i_bis > 0 ){
 	if(plateau[i_bis][j]==couleur && adv > 0) return 1;
 	if(plateau[i_bis][j]==VIDE) return 0;
@@ -138,7 +138,7 @@ int cap_haut(int couleur, int i, int j, int **plateau){
 }
 
 int cap_bas(int couleur, int i, int j, int **plateau){
-    int i_bis=i+2, adv=0;
+    int i_bis=i+1, adv=0;
     while( i_bis < 9 ){
 	if(plateau[i_bis][j]==couleur && adv > 0) return 1;
 	if(plateau[i_bis][j]==VIDE) return 0;
@@ -149,7 +149,7 @@ int cap_bas(int couleur, int i, int j, int **plateau){
 }
 
 int cap_droit(int couleur, int i, int j, int **plateau){
-    int j_bis=j+2, adv=0;
+    int j_bis=j+1, adv=0;
     while( j_bis < 9 ){
 	if(plateau[i][j_bis]==couleur && adv > 0) return 1;
 	if(plateau[i][j_bis]==VIDE) return 0;
@@ -160,7 +160,7 @@ int cap_droit(int couleur, int i, int j, int **plateau){
 }
 
 int cap_gauche(int couleur, int i, int j, int **plateau){
-    int j_bis=j-2, adv=0;
+    int j_bis=j-1, adv=0;
     while( j_bis > 0 ){
 	if(plateau[i][j_bis]==couleur && adv > 0) return 1;
 	if(plateau[i][j_bis]==VIDE) return 0;
@@ -170,65 +170,54 @@ int cap_gauche(int couleur, int i, int j, int **plateau){
     return 0;
 }
 
-//NOT OK
+// OK
 int cap_diag_haut_droit(int couleur, int i, int j, int **plateau){
-    int i_bis=i-2, j_bis=j+2, adv=0;
-    
+    int i_bis=i-1, j_bis=j+1, adv=0;
+    while( i_bis > 0 || j_bis < 9 ){
+	if(plateau[i_bis][j_bis] == couleur && adv > 0)return 1;
+	if(plateau[i_bis][j_bis]==VIDE) return 0;
+	adv+=1;
+	i_bis-=1;
+	j_bis+=1;
+    }
     return 0;
 }
 
+// OK
 int cap_diag_haut_gauche(int couleur, int i, int j, int **plateau){
-    int i_bis=i-2, j_bis=j-2, adv=0;
-    if( j_bis < 1 || i_bis < 1 )
-	return 0;
-    while( i_bis >=1  || j_bis >=1 ){
-	if( plateau[i_bis][j_bis] == couleur && adv > 0 )
-	    return 1;
-	if (plateau[i_bis][j_bis] == VIDE )
-	    return 0;
-	else {
-	    i_bis-=1;
-	    j_bis-=1;
-	    adv+=1;
-	}
+    int i_bis=i-1, j_bis=j-1, adv=0;
+    while( i_bis > 0 || j_bis > 0 ){
+	if(plateau[i_bis][j_bis] == couleur && adv > 0)return 1;
+	if(plateau[i_bis][j_bis]==VIDE) return 0;
+	adv+=1;
+	i_bis-=1;
+	j_bis-=1;
     }
     return 0;
 }
 
-
+// OK
 int cap_diag_bas_droit(int couleur, int i, int j, int **plateau){
-    int i_bis=i+2, j_bis=j+2, adv=0;
-    if( j_bis > 8 || i_bis > 8 )
-	return 0;
-    while( i_bis <= 8 || j_bis <= 8 ){
-	if( plateau[i_bis][j_bis] == couleur && adv > 0 )
-	    return 1;
-	if ( plateau[i_bis][j_bis] == VIDE )
-	    return 0;
-	else {
-	    i_bis+=1;
-	    j_bis+=1;
-	    adv+=1;
-	}
+    int i_bis=i+1, j_bis=j+1, adv=0;
+    while( i_bis < 9 || j_bis < 9 ){
+	if(plateau[i_bis][j_bis] == couleur && adv > 0)return 1;
+	if(plateau[i_bis][j_bis]==VIDE) return 0;
+	adv+=1;
+	i_bis+=1;
+	j_bis+=1;
     }
     return 0;
 }
 
-
+// OK
 int cap_diag_bas_gauche(int couleur, int i, int j, int **plateau){
-    int i_bis=i+2, j_bis=j-2, adv=0;
-    if( j_bis < 1 || i_bis > 8 )
-	return 0;
-    while( i_bis <= 8 || j_bis >=1 ){
-	if( plateau[i_bis][j_bis] == couleur && adv > 0 )
-	    return 1;
-	if (plateau[i_bis][j_bis] == VIDE )
-	    return 0;
-	else{
-	    i_bis+=1;
-	    j_bis-=1;
-	    adv+=1;
-	}
+     int i_bis=i+1, j_bis=j-1, adv=0;
+    while( i_bis < 9 || j_bis > 0 ){
+	if(plateau[i_bis][j_bis] == couleur && adv > 0)return 1;
+	if(plateau[i_bis][j_bis]==VIDE) return 0;
+	adv+=1;
+	i_bis+=1;
+	j_bis-=1;
     }
     return 0;
 }
