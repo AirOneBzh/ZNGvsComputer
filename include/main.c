@@ -16,8 +16,9 @@
 
 int main(void) {
   // creer fenetre menu -> interface.c
-
+  creer_fen_menu();
   int j = 1, x, c;
+  info infos;
 
   while (j == 1) {
     // lance le jeu
@@ -36,18 +37,22 @@ int main(void) {
     c = att_souris_menu(&x);
     switch(c){
     case 1:
+      free_jeu();
+      jeu(hauteur_fenetre(),largeur_fenetre(),infos);
       break;
     case 2:
+      fprintf(stderr,"Règles");
       break;
     case 3:
+      fprintf(stderr,"Fenetre");
       break;
     case 4:
+      fprintf(stderr,"Joueurs");
       break;
     default:
       break;
     }
     // free_fen_menu
-    free_jeu();
-    jeu();
+   
   }
 }

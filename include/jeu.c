@@ -48,7 +48,7 @@ void jeu(int hauteur,int largeur, info infos) {
   int r;
 
   // fin non atteinte
-  while (est_fini_partie(joueur,plateau)) {
+  while (1) {
     dess_plat();
     r = att_souris_clav(&x, &y);
 

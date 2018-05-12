@@ -19,11 +19,11 @@
 void dess_info(info i);
 
 int  hauteur_fenetre() {
-    return MLV_get_window_height();
+    return 0.8*MLV_get_desktop_height();
 }
 
 int largeur_fenetre(){
-  return MLV_get_window_width();
+  return (hauteur_fenetre()*16)/9;
 }
 
 void creer_fenetre(int hauteur, int largeur, info infos) {
@@ -235,6 +235,7 @@ void bouton(float x, char *text) {
   MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, MLV_COLOR_BLACK);
   MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, MLV_COLOR_WHITE);
   MLV_draw_text_with_font(2 * c, c * (x + 1), text, font, MLV_COLOR_BLACK);
+  MLV_actualise_window();
 }
 
 int att_souris_menu(int *x) {
@@ -242,10 +243,20 @@ int att_souris_menu(int *x) {
 
   MLV_wait_keyboard_or_mouse(NULL, NULL, NULL, &nx, &ny);
 
-  if ((nx < 0) && (ny < 0) && (nx > 0) && (ny > 0)) {
+  if ((nx < 466) && (ny < 217) && (nx > 73) && (ny > 145)) {
     *x = 1;
-    return 0;
-  } else {
+    return 1;
+  }
+  else if((nx < 466) && (ny < 217) && (nx > 73) && (ny > 145)){
+    return 1;
+  }
+  else if((nx < 466) && (ny < 217) && (nx > 73) && (ny > 145)) {
+    return 1;
+  }
+  else if((nx < 466) && (ny < 217) && (nx > 73) && (ny > 145)) {
+    return 1;
+  }
+  else{
     fprintf(stderr, "x%d y%d\n", nx, ny);
   }
 

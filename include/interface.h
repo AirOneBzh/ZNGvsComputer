@@ -21,6 +21,7 @@ void dess_infos(info i);
 // affiche écran de fin ZNG l'emporte
 void affiche_fin_ZNG();
 
+int largeur_fenetre();
 int hauteur_fenetre();
 
 //
@@ -43,6 +44,7 @@ void dess_apercu_selec(int x,
 
 
 // interface Menu
+void creer_fen_menu();
 void bouton(float x,
             char *text);
 
