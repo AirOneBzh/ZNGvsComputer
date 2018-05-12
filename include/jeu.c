@@ -127,9 +127,9 @@ int pose_pion(int couleur, int x, int y, int **plateau) {
 }
 
 int cap_haut(int couleur, int i, int j, int **plateau){
-
     int i_bis, adv=0;
     i_bis=i-2;
+    if(i_bis < 1) return 0;
     while( i_bis != 0 ){
 	if( plateau[i_bis][j] == couleur && adv > 0 )
 	    return 1;
@@ -144,10 +144,10 @@ int cap_haut(int couleur, int i, int j, int **plateau){
 }
 
 int cap_bas(int couleur, int i, int j, int **plateau){
-    if( i >=7 )
-	return 0;
+
     int i_bis, adv=0;
     i_bis=i+2;
+    if(i_bis > 8 ) return 0;
     while( i_bis <= 8 ){
 	if( plateau[i_bis][j] == couleur && adv > 0 )
 	    return 1;
@@ -162,10 +162,9 @@ int cap_bas(int couleur, int i, int j, int **plateau){
 }
 
 int cap_droit(int couleur, int i, int j, int **plateau){
-    if( j >=7 )
-	return 0;
     int j_bis, adv=0;
     j_bis=j+2;
+    if(j_bis > 8) return 0;
     while( j_bis <= 8 ){
 	if( plateau[i][j_bis] == couleur && adv > 0)
 	    return 1;
@@ -180,10 +179,10 @@ int cap_droit(int couleur, int i, int j, int **plateau){
 }
 
 int cap_gauche(int couleur, int i, int j, int **plateau){
-    if( j <= 2 )
-	return 0;
+
     int j_bis, adv=0;
     j_bis=j-2;
+    if(j_bis < 1) return 0;
     while( j_bis >= 1 ){
 	if( plateau[i][j_bis] == couleur && adv > 0 )
 	    return 1;
@@ -199,7 +198,7 @@ int cap_gauche(int couleur, int i, int j, int **plateau){
 
 int cap_diag_haut_droit(int couleur, int i, int j, int **plateau){
     int i_bis=i-2, j_bis=j+2, adv=0;
-    if( j >= 7 || i <=2 )
+    if( j_bis > 8 || i_bis < 1 )
 	return 0;
     while( i_bis >=1 || j_bis <= 8){
 	if( plateau[i_bis][j_bis] == couleur && adv > 0)
@@ -217,7 +216,7 @@ int cap_diag_haut_droit(int couleur, int i, int j, int **plateau){
 
 int cap_diag_haut_gauche(int couleur, int i, int j, int **plateau){
     int i_bis=i-2, j_bis=j-2, adv=0;
-    if( j <= 2 || i <=2 )
+    if( j_bis < 1 || i_bis < 1 )
 	return 0;
     while( i_bis >=1  || j_bis >=1 ){
 	if( plateau[i_bis][j_bis] == couleur && adv > 0 )
@@ -236,7 +235,7 @@ int cap_diag_haut_gauche(int couleur, int i, int j, int **plateau){
 
 int cap_diag_bas_droit(int couleur, int i, int j, int **plateau){
     int i_bis=i+2, j_bis=j+2, adv=0;
-    if( j >=7 || i >= 7 )
+    if( j_bis > 8 || i_bis > 8 )
 	return 0;
     while( i_bis <= 8 || j_bis <= 8 ){
 	if( plateau[i_bis][j_bis] == couleur && adv > 0 )
@@ -255,7 +254,7 @@ int cap_diag_bas_droit(int couleur, int i, int j, int **plateau){
 
 int cap_diag_bas_gauche(int couleur, int i, int j, int **plateau){
     int i_bis=i+2, j_bis=j-2, adv=0;
-    if( j <=2 || i >= 7 )
+    if( j_bis < 1 || i_bis > 8 )
 	return 0;
     while( i_bis <= 8 || j_bis >=1 ){
 	if( plateau[i_bis][j_bis] == couleur && adv > 0 )
