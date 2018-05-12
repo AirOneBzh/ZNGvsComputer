@@ -26,7 +26,7 @@ void jeu(int hauteur,int largeur, info infos) {
   int **plateau;
   int   i;
   int   x, y, joueur = BLANC;
-  int   f = 0;
+
 
   x       = y = 0;
   plateau = allocation_mem(10, sizeof(int *));
