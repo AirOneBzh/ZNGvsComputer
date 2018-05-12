@@ -48,6 +48,7 @@ int jeu(int hauteur,int largeur, info infos) {
   int r;
 
   // fin non atteinte
+  //  !est_fini_partie(joueur,plateau)
   while (!est_fini_partie(joueur,plateau)) {
    
     r = att_souris_clav(&x, &y);
@@ -112,8 +113,8 @@ void init_pions(int **plateau) {
   }
   // 4 pions début partie
   // pose_pion()
-  plateau[4][4] = plateau[3][3] = BLANC;
-  plateau[4][3] = plateau[3][4] = NOIR;
+  plateau[4][4] = plateau[5][5] = BLANC;
+  plateau[5][4] = plateau[4][5] = NOIR;
 }
 
 // après selection de case verifie si pion peut etre posé
@@ -300,7 +301,12 @@ int coup_valide(int couleur, int i, int j, int **plateau){
       cap_diag_bas_gauche( couleur,  i,  j,  plateau);
   }
   fprintf(stderr,"coup %d\n",s);
-  return s?1:0;
+  if(s>=1){
+    return 1;
+  }
+  else{
+    return 0;
+  }
 }
 
 int *nb_pions(int **plateau){
