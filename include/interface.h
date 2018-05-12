@@ -45,6 +45,7 @@ void dess_apercu_selec(int x,
 
 // interface Menu
 void creer_fen_menu();
+void clean_fen_menu();
 void bouton(float x,
             char *text);
 
