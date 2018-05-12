@@ -134,13 +134,11 @@ int cap_haut(int couleur, int i, int j, int **plateau){
 	if( plateau[i_bis][j] == couleur && adv > 0 )
 	    return 1;
 	if( plateau[i_bis][j] == VIDE)
-	    return 0;
 	else{
 	    adv+=1;
 	    i_bis-=1;
 	}
     }
-    return 0;
 }
 
 int cap_bas(int couleur, int i, int j, int **plateau){
@@ -298,6 +296,7 @@ int coup_valide(int couleur, int i, int j, int **plateau){
       cap_diag_haut_gauche( couleur,  i,  j,  plateau) +
       cap_diag_bas_droit( couleur,  i,  j,  plateau) +
       cap_diag_bas_gauche( couleur,  i,  j,  plateau);
+    fprintf(stderr,"^ %d, ^> %d, > %d, v> %d, v %d, <v %d, < %d, <^ %d\n", cap_haut( couleur,  i,  j,  plateau),cap_diag_haut_droit( couleur,  i,  j,  plateau),cap_droit( couleur,  i,  j,  plateau), cap_diag_bas_droit( couleur,  i,  j,  plateau),cap_bas( couleur,  i,  j,  plateau),cap_diag_bas_gauche( couleur,  i,  j,  plateau), cap_gauche( couleur,  i,  j,  plateau),cap_diag_haut_gauche( couleur,  i,  j,  plateau));
   }
   fprintf(stderr,"coup %d\n",s);
   if(s>=1){
