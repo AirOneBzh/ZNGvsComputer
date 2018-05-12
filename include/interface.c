@@ -16,6 +16,7 @@
 #include <MLV/MLV_all.h>
 #include "interface.h"
 #include "jeu.h"
+void dess_info(info i);
 
 int  hauteur_fenetre() {
     return MLV_get_window_height();
@@ -24,10 +25,11 @@ int  hauteur_fenetre() {
 int largeur_fenetre(){
   return MLV_get_window_width();
 }
+
 void creer_fenetre(int hauteur, int largeur, info infos) {
     MLV_create_window("zngOthello", "", largeur, hauteur);
     dess_plat();
-    dess_infos(infos);
+    dess_info(infos);
 }
 
 int fin() {

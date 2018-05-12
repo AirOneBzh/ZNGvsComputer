@@ -47,5 +47,5 @@ obj/%do:include/%c
 clean :
 	@rm -f include/*.o include/*.do prog progdebug
 
-clean :
+propre :
 	@rm -f include/*.o include/*.do 

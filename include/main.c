@@ -34,9 +34,20 @@ int main(void) {
     bouton(6.25, "Joueurs");
 
     c = att_souris_menu(&x);
-
+    switch(c){
+    case 1:
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+    case 4:
+      break;
+    default:
+      break;
+    }
     // free_fen_menu
-    MLV_free_window();
+    free_jeu();
     jeu();
   }
 }
