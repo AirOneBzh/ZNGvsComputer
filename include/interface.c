@@ -224,6 +224,10 @@ void creer_fen_menu() {
   int w  = 3 * h / 4;
 
   MLV_create_window("Menu zngOthello", "2", w, h);
+  
+}
+
+void clean_fen_menu(){
   MLV_clear_window(MLV_COUL_PLATEAU);
   MLV_actualise_window();
 }
@@ -261,7 +265,7 @@ int att_souris_menu(int *x) {
   else if((nx < 466) && (ny < 594) && (nx > 73) && (ny > 522)) {
     return 4;
   }
-   else if((nx < 466) && (ny < 145) && (nx > 73) && (ny > 0)) {
+   else if((nx < 466) && (nx > 73) && (ny > 594)) {
     return 5;
   }
   else{

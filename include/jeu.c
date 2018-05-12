@@ -134,6 +134,14 @@ int cap_haut(int couleur, int i, int j, int **plateau){
 	adv+=1;
 	i_bis-=1;
     }
+    else if(plateau[i_bis][j]==couleur){
+      if(adv>0)
+	return 1;
+    }
+    else{
+      return 0;
+    }
+  }
     return 0;
 }
 
@@ -145,7 +153,8 @@ int cap_bas(int couleur, int i, int j, int **plateau){
 	adv+=1;
 	i_bis+=1;
     }
-    return 0;
+  }
+  return 0;
 }
 
 int cap_droit(int couleur, int i, int j, int **plateau){
@@ -245,6 +254,8 @@ int a_voisin(int i, int j, int **plateau){
 	plateau[i+1][j-1]+
 	plateau[i+1][j]+
 	plateau[i+1][j+1];
+    fprintf(stderr,"vois        i %d, j %d, ^ %d, ^> %d, > %d, v> %d, v %d, <v %d, < %d, <^ %d\n",i,j,	plateau[i-1][j],plateau[i-1][j+1],plateau[i][j+1],plateau[i+1][j+1],plateau[i+1][j],plateau[i+1][j-1],plateau[i][j-1],plateau[i-1][j-1]);
+    fprintf(stderr,"i %d j %d vois %d\n",i,j,vois);
     if( vois > 0)
 	return 1;
     return 0;
@@ -261,7 +272,7 @@ int coup_valide(int couleur, int i, int j, int **plateau){
       cap_diag_haut_gauche( couleur,  i,  j,  plateau) +
       cap_diag_bas_droit( couleur,  i,  j,  plateau) +
       cap_diag_bas_gauche( couleur,  i,  j,  plateau);
-    fprintf(stderr,"^ %d, ^> %d, > %d, v> %d, v %d, <v %d, < %d, <^ %d\n", cap_haut( couleur,  i,  j,  plateau),cap_diag_haut_droit( couleur,  i,  j,  plateau),cap_droit( couleur,  i,  j,  plateau), cap_diag_bas_droit( couleur,  i,  j,  plateau),cap_bas( couleur,  i,  j,  plateau),cap_diag_bas_gauche( couleur,  i,  j,  plateau), cap_gauche( couleur,  i,  j,  plateau),cap_diag_haut_gauche( couleur,  i,  j,  plateau));
+    fprintf(stderr,"i %d, j %d, ^ %d, ^> %d, > %d, v> %d, v %d, <v %d, < %d, <^ %d\n",i,j, cap_haut( couleur,  i,  j,  plateau),cap_diag_haut_droit( couleur,  i,  j,  plateau),cap_droit( couleur,  i,  j,  plateau), cap_diag_bas_droit( couleur,  i,  j,  plateau),cap_bas( couleur,  i,  j,  plateau),cap_diag_bas_gauche( couleur,  i,  j,  plateau), cap_gauche( couleur,  i,  j,  plateau),cap_diag_haut_gauche( couleur,  i,  j,  plateau));
   }
   fprintf(stderr,"coup %d\n",s);
   if(s>=1){
@@ -291,6 +302,7 @@ int *nb_pions(int **plateau){
 int est_fini_partie(int couleur, int **plateau){
   fprintf(stderr,"fini?");
   int *etat=nb_pions(plateau);
+  fprintf(stderr,"BLANC %d NOIR %d",BLANC ,NOIR);
   fprintf(stderr,"nb pions %d",etat[0]);
   int i, j;
   int c;

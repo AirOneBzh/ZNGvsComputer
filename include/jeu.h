@@ -19,9 +19,11 @@
 #include "liste.h"
 
 typedef struct {
-char *joueur_1;
-char *joueur_2;
-int *nb_pions;
+  char joueur_1[20];
+  int niv1;
+  char joueur_2[20];
+  int niv2;
+  int *nb_pions;
 }info;
 
 //avoir la couleur de l'ennemi
