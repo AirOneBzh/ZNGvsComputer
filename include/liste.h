@@ -3,9 +3,9 @@
 
 typedef int element;
 
-typedef struct cell{
+typedef struct cellu{
 element objet;
-struct cell * suivant;
+struct cellu * suivant;
 }struct_cell;
 
 typedef struct_cell * liste;

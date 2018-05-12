@@ -1,5 +1,6 @@
 #include "pile.h"
 #include "jeu.h"
+#include <stdlib.h>
 pile pile_vide(){
     return NULL;
 }
@@ -23,14 +24,13 @@ pile ajoute_coup(int color, int i, int j, int **plateau, pile P){
     return pnew;
 }
 
-pile retire_coup(int **plateau, pile P){
+pile retire_coup(int **plateau, pile p){
     //il suffit de retirer le coup dépiler du plateau
-    int i, j;
-    plateau[P->x][P->y]=VIDE;
+    plateau[p->x][p->y]=VIDE;
 
     //puis de dépiler ce coup de la pile
-    pile pnew=P->suivant;
-    libere_mem(&P);
+    pile pnew=p->suivant;
+    free(p);
     return pnew;
 }
  

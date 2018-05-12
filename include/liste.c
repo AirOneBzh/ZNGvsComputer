@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "liste.h"
+#include <limits.h>
 
 liste liste_vide()
 {
@@ -16,7 +17,7 @@ int est_liste_vide(liste l)
 
 liste inserer_element_liste(liste l,element elem)
 {
-  liste lnew=(liste)malloc(sizeof(struct_cellule));
+  liste lnew=(liste)malloc(sizeof(struct_cell));
   lnew->objet = elem;
   lnew->suivant=l;
   return lnew;
@@ -49,11 +50,11 @@ element min_liste(liste l){
     return acc;
 }
 
-element min_liste(liste l){
+element max_liste(liste l){
     int acc=INT_MIN;
     liste lbis=l;
     while ( !est_liste_vide(lbis) ){
-	if( lbis -> objet => acc )
+	if( lbis -> objet >= acc )
 	    acc=lbis->objet;
 	lbis=lbis->suivant;
     }

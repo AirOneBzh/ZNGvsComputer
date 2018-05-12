@@ -2,27 +2,30 @@
 #include <stdlib.h>
 #include <time.h>
 #include <limits.h>
-#include "AI.h"
-#include "jeu.h"
-#include "liste.h"
-#include "pile.h"
+#include "IA.h"
+#include <string.h>
 #define COEF 500
 #define INF INT_MAX
 
-
+int **copie_plateaut(int **plateau){
+    int i,plateau_bis[10][10];
+    for(i=0; i<10; i++)
+	memcpy (plateau_bis[i], plateau[i], 10*sizeof(int));
+    return plateau_bis;
+}
 
 int evaluation(int couleur, int **plateau){
-  int *pions=nb_pions(plateau);
-  if(couleur == BLANC)
-  return pions[0]-pions[1];
-  return pions[1]-pions[0];
+    int *pions=nb_pions(plateau);
+    if(couleur == BLANC)
+	return pions[0]-pions[1];
+    return pions[1]-pions[0];
 }
 
 int minmax(int couleur, int min, int **plateau, int prof, liste l)
 {//A LA FIN DU PROG ON CONNAIT LA NOTE POUR UN COUP choisie
     int plateau_bis[10][10];
     int i, j;
-    memcpy(plateau, plateau_bis, sizeof(plateau));
+    memcpy(plateau, plateau_bis, 100);
     if(prof == 0 || est_fini_partie(couleur, plateau_bis))
 	l=inserer_element_liste(l, evaluation(couleur, plateau));
 
@@ -85,6 +88,7 @@ int **jouer_coup_niveau0(int couleur, int plateau){
 	return plateau;
     }
     else jouer_coup_niveau0(couleur, plateau);
+    return EXIT_FAILURE;
 }
 
 int **jouer_coup_niveau1(int couleur, int **plateau){
@@ -182,7 +186,7 @@ int **jouer_coup_niveau4(int couleur, int **plateau, pile Chemin, pile coup, int
     }
     else{ //le plateau n'est pas vide on continue de chercher d'autres possibilités
 	coup=retire_coup(plateau, coup);
-	plateau=jouer_coup_niveau4(couleur, plateau, Chemin, eval, betterX, betterY);
+	plateau=jouer_coup_niveau4(couleur, plateau, Chemin, coup, eval, betterX, betterY);
     }
     return plateau;
 }//end function
