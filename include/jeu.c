@@ -134,11 +134,13 @@ int cap_haut(int couleur, int i, int j, int **plateau){
 	if( plateau[i_bis][j] == couleur && adv > 0 )
 	    return 1;
 	if( plateau[i_bis][j] == VIDE)
+	    return 1;
 	else{
 	    adv+=1;
 	    i_bis-=1;
 	}
     }
+    return 1;
 }
 
 int cap_bas(int couleur, int i, int j, int **plateau){
