@@ -18,14 +18,14 @@
 
 
 
-void jeu(int hauteur,int largeur, info infos) {
+int jeu(int hauteur,int largeur, info infos) {
   // int   dh = hauteur_fenetre();
   // int   h  = 0.8 * dh;
   // int   c  = h / 18;
   // int   w  = 16 * h / 9;
   int **plateau;
   int   i;
-  int   x, y, joueur = BLANC;
+  int   x, y, joueur = NOIR;
 
 
   x       = y = 0;
@@ -42,14 +42,14 @@ void jeu(int hauteur,int largeur, info infos) {
   creer_fenetre(hauteur,largeur, infos);
 
   //dess_
-  dess_plat();
-  dess_apercu_selec(0, 0);
   dess_pions(plateau);
+  dess_apercu_selec(0, 0);
+  
   int r;
 
   // fin non atteinte
-  while (1) {
-    dess_plat();
+  while (!est_fini_partie(joueur,plateau)) {
+   
     r = att_souris_clav(&x, &y);
 
     // resultat de att souris
@@ -84,13 +84,17 @@ void jeu(int hauteur,int largeur, info infos) {
       free_jeu();
       exit(0);
     }
+    dess_plat();
+    dess_info(infos);
     dess_pions(plateau);
-
+     dess_apercu_selec(x, y);
+    
     #ifdef TEST
     f = 1;
     #endif /* ifdef TEST */
   }
   free_jeu();
+  return 1;
 }
 
 int opposant(int couleur){
@@ -122,8 +126,7 @@ int pose_pion(int couleur, int x, int y, int **plateau) {
 }
 
 int cap_haut(int couleur, int i, int j, int **plateau){
-    if( i <= 2)
-	return 0;
+
     int i_bis, adv=0;
     i_bis=i-2;
     while( i_bis != 0 ){
@@ -285,18 +288,19 @@ int a_voisin(int i, int j, int **plateau){
 }
 
 int coup_valide(int couleur, int i, int j, int **plateau){
-  if(plateau[i][j] != VIDE )return 0;
-  if ( a_voisin(i, j, plateau) )
-  return
-  cap_haut( couleur,  i,  j,  plateau) ||
-  cap_bas( couleur,  i,  j,  plateau) ||
-  cap_droit( couleur,  i,  j,  plateau) ||
-  cap_gauche( couleur,  i,  j,  plateau) ||
-  cap_diag_haut_droit( couleur,  i,  j,  plateau) ||
-  cap_diag_haut_gauche( couleur,  i,  j,  plateau) ||
-  cap_diag_bas_droit( couleur,  i,  j,  plateau) ||
-  cap_diag_bas_gauche( couleur,  i,  j,  plateau);
-  else return 0;
+  int s=0;
+  if(plateau[i][j] != VIDE ) return 0;
+  if ( a_voisin(i, j, plateau) ){
+    s= cap_haut( couleur,  i,  j,  plateau) + cap_bas( couleur,  i,  j,  plateau) +
+      cap_droit( couleur,  i,  j,  plateau) +
+      cap_gauche( couleur,  i,  j,  plateau) +
+      cap_diag_haut_droit( couleur,  i,  j,  plateau) +
+      cap_diag_haut_gauche( couleur,  i,  j,  plateau) +
+      cap_diag_bas_droit( couleur,  i,  j,  plateau) +
+      cap_diag_bas_gauche( couleur,  i,  j,  plateau);
+  }
+  fprintf(stderr,"coup %d\n",s);
+  return s?1:0;
 }
 
 int *nb_pions(int **plateau){
@@ -316,13 +320,19 @@ int *nb_pions(int **plateau){
 }
 
 int est_fini_partie(int couleur, int **plateau){
-    int *etat=nb_pions(plateau);
-    int i, j;
-    if(etat[0]==64)
-	return 1;
-    for(i=1; i<=8; i++)
-	for(j=1; j<=8; j++)
-	    if(coup_valide(couleur, i, j, plateau))
-		return 0;
+  fprintf(stderr,"fini?");
+  int *etat=nb_pions(plateau);
+  fprintf(stderr,"nb pions %d",etat[0]);
+  int i, j;
+  int c;
+  if(etat[0]==64)
     return 1;
+  for(i=1; i<=8; i++)
+    for(j=1; j<=8; j++){
+      c=coup_valide(couleur, i, j, plateau);
+      fprintf(stderr,"i %d j %d coup valide %d\n",i,j,c);
+      if(c)
+	return 0;
+    }
+  return 1;
 }

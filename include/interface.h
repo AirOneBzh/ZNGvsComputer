@@ -16,7 +16,7 @@ void creer_fenetre(int hauteur,int largeur,info info);
 //libère la mémoire used par la fenetre
 void free_jeu();
 // Dessine les infos complémentaires au jeu
-void dess_infos(info i);
+void dess_info(info i);
 
 // affiche écran de fin ZNG l'emporte
 void affiche_fin_ZNG();

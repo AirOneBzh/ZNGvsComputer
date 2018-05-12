@@ -28,7 +28,7 @@ int *nb_pions;
 int opposant(int couleur);
 
 //Description jeu
-void jeu();
+int jeu();
 
 //initialise le plateau
 void init_pions(int **plateau);

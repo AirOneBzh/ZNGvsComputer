@@ -16,11 +16,12 @@
 
 int main(void) {
   // creer fenetre menu -> interface.c
-  creer_fen_menu();
+  
   int j = 1, x, c;
   info infos;
 
   while (j == 1) {
+    creer_fen_menu();
     // lance le jeu
     bouton(   1, "Jouer");
 
@@ -39,6 +40,7 @@ int main(void) {
     case 1:
       free_jeu();
       jeu(hauteur_fenetre(),largeur_fenetre(),infos);
+      fprintf(stderr,"case");
       break;
     case 2:
       fprintf(stderr,"Règles");
@@ -49,10 +51,13 @@ int main(void) {
     case 4:
       fprintf(stderr,"Joueurs");
       break;
+    case 5:
+      exit(EXIT_SUCCESS);
     default:
       break;
     }
-    // free_fen_menu
    
+    // free_fen_menu
+
   }
 }

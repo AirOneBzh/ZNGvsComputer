@@ -16,6 +16,10 @@
 #include <MLV/MLV_all.h>
 #include "interface.h"
 #include "jeu.h"
+
+#define MLV_COUL_PLATEAU MLV_rgba(1, 105, 56, 255)
+
+
 void dess_info(info i);
 
 int  hauteur_fenetre() {
@@ -33,8 +37,9 @@ void creer_fenetre(int hauteur, int largeur, info infos) {
 }
 
 int fin() {
-  int h = MLV_get_window_height();
-  int w = MLV_get_window_width();
+  MLV_create_window("","",largeur_fenetre(),hauteur_fenetre());
+  int h =100;
+  int w=90;
   MLV_Image *image;
   int image_width, image_height; // , text_width, text_height;
   const char *text = "Ordinateur Gagne! \n Esc pour retour menu.";
@@ -61,7 +66,7 @@ void dess_plat() {
   int c = h / 18;
   int i;
 
-  MLV_draw_filled_rectangle(0, 0, h, h, MLV_rgba(100, 200, 150, 100));
+  MLV_draw_filled_rectangle(0, 0, h, h, MLV_COUL_PLATEAU);
 
   // MLV_clear_window(MLV_rgba(100, 200, 150, 100));
   MLV_draw_rectangle(c, c, 16 * c, 16 * c, MLV_COLOR_WHITE);
@@ -84,8 +89,8 @@ void dess_plat() {
 void dess_info(info i) {
     int h=hauteur_fenetre();
     int w=largeur_fenetre();
-    MLV_draw_filled_rectangle(0, h, h, w - h, MLV_rgba(100, 200, 150, 100));
-
+    MLV_draw_filled_rectangle(0, h, h, w - h, MLV_COLOR_RED);
+    MLV_actualise_window();
     // MLV_draw_text
 }
 
@@ -219,7 +224,7 @@ void creer_fen_menu() {
   int w  = 3 * h / 4;
 
   MLV_create_window("Menu zngOthello", "2", w, h);
-  MLV_clear_window(MLV_rgba(100, 200, 150, 100));
+  MLV_clear_window(MLV_COUL_PLATEAU);
   MLV_actualise_window();
 }
 
@@ -240,21 +245,24 @@ void bouton(float x, char *text) {
 
 int att_souris_menu(int *x) {
   int nx, ny;
-
+  
   MLV_wait_keyboard_or_mouse(NULL, NULL, NULL, &nx, &ny);
 
   if ((nx < 466) && (ny < 217) && (nx > 73) && (ny > 145)) {
     *x = 1;
     return 1;
   }
-  else if((nx < 466) && (ny < 217) && (nx > 73) && (ny > 145)){
-    return 1;
+  else if((nx < 466) && (ny < 339) && (nx > 73) && (ny > 271)){
+    return 2;
   }
-  else if((nx < 466) && (ny < 217) && (nx > 73) && (ny > 145)) {
-    return 1;
+  else if((nx < 466) && (ny < 467) && (nx > 73) && (ny > 396)) {
+    return 3;
   }
-  else if((nx < 466) && (ny < 217) && (nx > 73) && (ny > 145)) {
-    return 1;
+  else if((nx < 466) && (ny < 594) && (nx > 73) && (ny > 522)) {
+    return 4;
+  }
+   else if((nx < 466) && (ny < 145) && (nx > 73) && (ny > 0)) {
+    return 5;
   }
   else{
     fprintf(stderr, "x%d y%d\n", nx, ny);
