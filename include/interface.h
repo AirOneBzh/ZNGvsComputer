@@ -11,10 +11,10 @@
 
 
 // Créer une fenetre de taille hauteur * largeur
-void creer_fenetre(int hauteur,int largeur,infos info);
+void creer_fenetre(int hauteur,int largeur,info info);
 
 // Dessine les infos complémentaires au jeu
-void dess_infos(infos i);
+void dess_infos(info i);
 
 // affiche écran de fin ZNG l'emporte
 void affiche_fin_ZNG();

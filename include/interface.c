@@ -15,13 +15,19 @@
 #include <stdlib.h>
 #include <MLV/MLV_all.h>
 #include "interface.h"
+#include "jeu.h"
 
-int  hauteur_fenetre() {}
+int  hauteur_fenetre() {
+    return MLV_get_window_height();
+}
 
+int largeur_fenetre(){
+  return MLV_get_window_width();
+}
 void creer_fenetre(int hauteur, int largeur, info infos) {
-  MLV_create_window("zngOthello", "", largeur, hauteur);
-  dess_plat();
-  dess_info(infos);
+    MLV_create_window("zngOthello", "", largeur, hauteur);
+    dess_plat();
+    dess_infos(infos);
 }
 
 int fin() {
@@ -49,11 +55,11 @@ int fin() {
 
 // Dessine le plateau vide
 void dess_plat() {
-  int h = MLV_get_window_height();
+  int h = hauteur_fenetre();
   int c = h / 18;
   int i;
 
-  draw_filled_rectangle(0, 0, h, h, MLV_rgba(100, 200, 150, 100));
+  MLV_draw_filled_rectangle(0, 0, h, h, MLV_rgba(100, 200, 150, 100));
 
   // MLV_clear_window(MLV_rgba(100, 200, 150, 100));
   MLV_draw_rectangle(c, c, 16 * c, 16 * c, MLV_COLOR_WHITE);
@@ -73,10 +79,12 @@ void dess_plat() {
   MLV_actualise_window();
 }
 
-void dess_info(infos i) {
-  MLV_draw_filled_rectangle(0, h, h, w - h, MLV_rgba(100, 200, 150, 100));
+void dess_info(info i) {
+    int h=hauteur_fenetre();
+    int w=largeur_fenetre();
+    MLV_draw_filled_rectangle(0, h, h, w - h, MLV_rgba(100, 200, 150, 100));
 
-  // MLV_darw_text
+    // MLV_draw_text
 }
 
 void free_jeu() {

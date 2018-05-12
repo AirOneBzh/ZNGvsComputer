@@ -16,26 +16,7 @@
 #include "jeu.h"
 #include "MLV/MLV_all.h"
 
-// initialise le tableau d'int à 0 et 4 pions au milieu
-void init_pions(int **plateau);
 
-// pose un pion de couleur couleur sur le plateau aux coord x,y
-int pose_pion(int couleur, int x, int y, int **plateau);
-
-//avoir la couleur de l'ennemi
-int opposant(int couleur);
-
-// lance le jeu avec la fenetre
-void jeu(int hauteur,int largeur);
-
-// cap haut bas droit gauche diag...
-// verifie si capture
-
-// a_voisin
-
-// coup_valide
-
-// nb_pions
 
 void jeu(int hauteur,int largeur) {
   // int   dh = hauteur_fenetre();
@@ -55,9 +36,9 @@ void jeu(int hauteur,int largeur) {
   }
 
   // si menu load > tab = fich sinon init_pions
-  init_pions(tab);
+  init_pions(plateau);
+  
   // creer fenetre
-
   creer_fenetre(hauteur,largeur);
 
   //dess_
