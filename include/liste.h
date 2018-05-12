@@ -3,12 +3,12 @@
 
 typedef int element;
 
-typedef struct cellule{
+typedef struct cell{
 element objet;
-struct cellule * suivant;
-}struct_cellule;
+struct cell * suivant;
+}struct_cell;
 
-typedef struct_cellule * liste;
+typedef struct_cell * liste;
 
 /* renvoie la liste vide */
 liste liste_vide();

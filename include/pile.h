@@ -2,6 +2,7 @@
 #define _PILE_H_
 //Le module pile est nécessaire pour le niveau 4
 #include "allocation.h"
+#include <stddef.h>
 typedef struct cellule{
     int x;
     int y;

@@ -18,7 +18,7 @@
 
 
 
-void jeu(int hauteur,int largeur) {
+void jeu(int hauteur,int largeur, info infos) {
   // int   dh = hauteur_fenetre();
   // int   h  = 0.8 * dh;
   // int   c  = h / 18;
@@ -39,7 +39,7 @@ void jeu(int hauteur,int largeur) {
   init_pions(plateau);
   
   // creer fenetre
-  creer_fenetre(hauteur,largeur);
+  creer_fenetre(hauteur,largeur, infos);
 
   //dess_
   dess_plat();
@@ -62,9 +62,9 @@ void jeu(int hauteur,int largeur) {
       // clic souris ou entrée
       case 1:
 
-      if (pose_pion(j, x, y, plateau) == 1) {
+      if (pose_pion(joueur, x, y, plateau) == 1) {
         // jb numero du joueur qui doit jouer 1 ou 2
-        opposant(jb)
+	  joueur=opposant(joueur);
       }
       else {
         // pose_pion(impo)
@@ -84,7 +84,7 @@ void jeu(int hauteur,int largeur) {
       free_jeu();
       exit(0);
     }
-    dess_pions(tab);
+    dess_pions(plateau);
 
     #ifdef TEST
     f = 1;
@@ -115,7 +115,7 @@ void init_pions(int **plateau) {
 // après selection de case verifie si pion peut etre posé
 int pose_pion(int couleur, int x, int y, int **plateau) {
   // int i;
-  valide=coup_valide(couleur,x,y,plateau);
+  int valide=coup_valide(couleur,x,y,plateau);
   if (valide)
   plateau[x][y]=couleur;
   return valide;
@@ -300,19 +300,19 @@ int coup_valide(int couleur, int i, int j, int **plateau){
 }
 
 int *nb_pions(int **plateau){
-  int i, j, b=0, n=0;
-  int blanc_noir[3];
-  for(i=1; i<=8; i++)
-  for(j=1; j<=8; j++){
-    if(plateau[i][j]==BLANC)
-    B++;
-    if(plateau[i][j]==NOIR)
-    N++;
-  }
-  blanc_noir[0]=b+n;
-  blanc_noir[1]=b;
-  blanc_noir[2]=n;
-  return blanc_noir;
+    int i, j, b=0, n=0;
+    int *blanc_noir=(int *)allocation_mem(3, sizeof(int));
+    for(i=1; i<=8; i++)
+	for(j=1; j<=8; j++){
+	    if(plateau[i][j]==BLANC)
+		b++;
+	    if(plateau[i][j]==NOIR)
+		n++;
+	}
+    blanc_noir[0]=b+n;
+    blanc_noir[1]=b;
+    blanc_noir[2]=n;
+    return blanc_noir;
 }
 
 int est_fini_partie(int couleur, int **plateau){

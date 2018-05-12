@@ -13,6 +13,8 @@
 // Créer une fenetre de taille hauteur * largeur
 void creer_fenetre(int hauteur,int largeur,info info);
 
+//libère la mémoire used par la fenetre
+void free_jeu();
 // Dessine les infos complémentaires au jeu
 void dess_infos(info i);
 

@@ -1,6 +1,6 @@
 #ifndef _ALLOCATION_H_
 #define _ALLOCATION_H_
-
+#include <stddef.h>
 /*--------------------------------------------------------------------
  *fonction d'allocation de memoire du type defini par taille 
  *pour un nombre nobjets
