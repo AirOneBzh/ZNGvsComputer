@@ -31,7 +31,7 @@ cd:
 prog : $(LISTEPROG)
 	@$(CC) $^ -o $@ $(lDFLAGS) $(CFLAGS) $(LDLIBS)
 	#
-	# Lancer bin/prog pour lancer le programme
+	# Lancer prog pour lancer le programme
 	#     make debug     pour trouver segfault
 	#
 #dans la ligne du dessus il y a une tabulation en debut ligne !!
