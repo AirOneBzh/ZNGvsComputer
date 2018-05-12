@@ -104,9 +104,9 @@ void dess_pions(int **tab) {
   int h = MLV_get_window_height();
   int c = h / 18;
 
-  for (i = 1; i <= 8; i++) {
-    for (j = 1; j <= 8; j++) {
-      if (tab[i - 1][j - 1] == BLANC) {
+  for (j = 1; j <= 8; j++) {
+    for (i = 1; i <= 8; i++) {
+      if (tab[j][i] == BLANC) {
         MLV_draw_filled_circle((i * 2) * c, (j * 2) * c, 0.8 * c,
                                MLV_COLOR_WHITE);
         MLV_draw_filled_circle((i * 2) * c, (j * 2) * c, 0.7 * c,
@@ -115,7 +115,7 @@ void dess_pions(int **tab) {
                                MLV_COLOR_WHITE);
       }
 
-      if (tab[i - 1][j - 1] == NOIR) {
+      if (tab[j][i] == NOIR) {
         MLV_draw_filled_circle((i * 2) * c, (j * 2) * c, 0.8 * c,
                                MLV_COLOR_BLACK);
         MLV_draw_filled_circle((i * 2) * c, (j * 2) * c, 0.7 * c,
