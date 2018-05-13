@@ -25,8 +25,8 @@ element renvoie_premier_liste(liste l);
 /* supprime la premiere cellule de la liste l */
 liste supprimer_element_liste(liste l);
 
-//pour l'implémentation de la fonction minmax
-element min_liste(liste l); //retourne min de la liste
-element max_liste(liste l); //retourne max de la liste
+/* pour l'implémentation de la fonction minmax */
+element min_liste(liste l); /* retourne min de la liste */
+element max_liste(liste l); /* retourne max de la liste */
 
 #endif

@@ -83,7 +83,7 @@ void libere_mem_peda(void * *pt)
 */
 void libere_adr(void *pt)
 {
-  void ** adr_pt=(void **) pt; // on suppose que pt est l'adresse de pointeur � lib�rer
+  void ** adr_pt=(void **) pt; /* on suppose que pt est l'adresse de pointeur � lib�rer */
   if((*adr_pt)!=NULL){
     free(*adr_pt);
     /*liberation de *pt */

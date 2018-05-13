@@ -4,7 +4,7 @@
 
 CC = gcc
 #compilateur
-CFLAGS = -Wall -std=c11 `pkg-config --cflags MLV`
+CFLAGS = -Wall -std=c11 -ansi `pkg-config --cflags MLV`
 #option  -DTOTO   ->  = #define
 LDFLAGS =`pkg-config --libs-only-other --libs-only-L MLV`
 LDLIBS = `pkg-config --libs-only-l MLV`

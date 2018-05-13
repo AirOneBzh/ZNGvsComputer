@@ -19,7 +19,7 @@
 
 #define MLV_COUL_PLATEAU MLV_rgba(1, 105, 56, 255)
 
-// attente pour tour de bots
+/* attente pour tour de bots */
 void attente(int n){
   MLV_wait_seconds(n);
 }
@@ -57,7 +57,7 @@ int fin(info i,int joueur) {
     nbp=64-i.nb_pions[2];
   }
   sprintf(gagnan,"%s avec %d pions",gagnant==1?i.joueur_1:i.joueur_2,nbp);
-  // pour \n dans draw text -> box sinon une seule ligne
+  /* pour \n dans draw text -> box sinon une seule ligne */
   MLV_draw_filled_rectangle(0,0,h,w,MLV_COUL_PLATEAU);
   MLV_draw_filled_rectangle(0.1*h,0.8*w,0.1*h,0.2*w,gagnant==1?MLV_COLOR_WHITE:MLV_COLOR_BLACK);
   MLV_draw_text_with_font(0.1*h,0.4*w,gagnan,font,gagnant==1?MLV_COLOR_BLACK:MLV_COLOR_WHITE);
@@ -68,7 +68,7 @@ int fin(info i,int joueur) {
   return 0;
 }
 
-// Dessine le plateau vide
+/* Dessine le plateau vide */
 void dess_plat() {
   int h = hauteur_fenetre();
   int c = h / 18;
@@ -76,7 +76,7 @@ void dess_plat() {
 
   MLV_draw_filled_rectangle(0, 0, h, h, MLV_COUL_PLATEAU);
 
-  // MLV_clear_window(MLV_rgba(100, 200, 150, 100));
+  /* MLV_clear_window(MLV_rgba(100, 200, 150, 100)); */
   MLV_draw_rectangle(c, c, 16 * c, 16 * c, MLV_COLOR_WHITE);
 
   for (i = 1; i < 8; i++) {
@@ -96,7 +96,7 @@ void dess_plat() {
 
 void dess_info(info i) {
   int h=hauteur_fenetre();
-  //int w=largeur_fenetre();
+  /* int w=largeur_fenetre(); */
   int c = h * 0.1;
   char pion_1[5],pion_2[5],pion_t[5],niv1[5],niv2[5];
   int t_font = c * 0.8;
@@ -112,12 +112,12 @@ void dess_info(info i) {
   MLV_draw_text_with_font(1.1*h,0.3*h,i.joueur_1,font,MLV_COLOR_BLACK);
   MLV_draw_text_with_font(1.1*h,0.4*h,i.joueur_2,font,MLV_COLOR_WHITE);
   MLV_draw_text_with_font(1.1*h,0.5*h,"Plateau",font,MLV_rgba(177,86,149,255));
-  // Pions
+  /* Pions */
   MLV_draw_text_with_font(1.5*h,0.3*h,pion_1,font,MLV_COLOR_BLACK);
   MLV_draw_text_with_font(1.5*h,0.4*h,pion_2,font,MLV_COLOR_WHITE);
   MLV_draw_text_with_font(1.5*h,0.5*h,pion_t,font,MLV_rgba(177,86,149,255));
 
-  // Niv IA
+  /* Niv IA */
   sprintf(niv1,"%d",i.niv1/10);
   sprintf(niv2,"%d",i.niv2/10);
   MLV_draw_text_with_font(1.65*h,0.3*h,i.niv1>=0?niv1:"J",font,MLV_COLOR_BLACK);
@@ -134,7 +134,7 @@ void free_jeu() {
   MLV_free_window();
 }
 
-// Dessine les pions tels que disposés dans tab([8][8])
+/* Dessine les pions tels que disposés dans tab([8][8]) */
 void dess_pions(int **tab) {
   int i, j;
   int h = hauteur_fenetre();
@@ -240,7 +240,7 @@ int att_souris_clav(int *x, int *y) {
   entrer = selection
 */
 
-// Carré de couleur selection clavier
+/* Carré de couleur selection clavier */
 void dess_apercu_selec(int x, int y) {
   int c = hauteur_fenetre() / 18;
   if(x<8 && x>=0 && y<8 && y>=0){
@@ -287,7 +287,7 @@ void creer_fen_menu() {
 void clean_fen_menu(){
   MLV_clear_window(MLV_COUL_PLATEAU);
   int h = MLV_get_window_height();
-  //int w = MLV_get_window_width();
+  /* int w = MLV_get_window_width(); */
   int c = h * 0.1;
   int t_font = c * 0.8;
   MLV_Font *font1 = MLV_load_font("assets/fonts/DevilBreeze.ttf", 0.7*t_font);

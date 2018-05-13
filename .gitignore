@@ -1,2 +1,12 @@
 
 prog
+
+*.aux
+
+Rapport/Othello\.log
+
+Rapport/Othello\.synctex\.gz
+
+Rapport/Othello\.out
+
+Rapport/Othello\.toc

@@ -89,13 +89,13 @@ void joueurs(info *info){
 
     bouton(   1, btn1);
 
-    // change nom j1
+    /* change nom j1 */
     bouton(2.75, btn2);
 
-    // change joueur / IA 1
+    /* change joueur / IA 1 */
     bouton( 4.5, btn3);
 
-    // modifie Joueur 1 -> IA nom
+    /* modifie Joueur 1 -> IA nom */
     bouton(6.25, btn4);
     bouton(8, "Retour");
 
@@ -125,7 +125,7 @@ void joueurs(info *info){
 
 
 int main(void) {
-  // creer fenetre menu -> interface.c
+  /* creer fenetre menu -> interface.c */
   
   int j = 1, x, c;
   info infos;
@@ -138,17 +138,17 @@ int main(void) {
   while (j == 1) {
      
     clean_fen_menu();
-    // lance le jeu
+    /* lance le jeu */
     bouton(   1, "Jouer");
 
-    // affiche les règles
+    /* affiche les règles */
     bouton(2.75, "Règles");
 
-    // Modifie apparence fenetre
-    // taille
+    /* Modifie apparence fenetre */
+    /* taille */
     bouton( 4.5, infos.fen?"Fenetre":"Plein Ecran");
 
-    // modifie Joueur 1 -> IA nom
+    /* modifie Joueur 1 -> IA nom */
     bouton(6.25, "Joueurs");
     bouton(8, "Quitter");
 
@@ -175,7 +175,7 @@ int main(void) {
     default:
       break;
     }
-    // free_fen_menu
+    /* free_fen_menu */
 
   }
       free_jeu();
