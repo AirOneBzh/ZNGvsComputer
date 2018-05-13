@@ -23,7 +23,7 @@
 void dess_info(info i);
 
 int  hauteur_fenetre() {
-    return 0.8*MLV_get_desktop_height ();
+  return 0.8*MLV_get_desktop_height ();
 }
 
 int largeur_fenetre(){
@@ -31,9 +31,9 @@ int largeur_fenetre(){
 }
 
 void creer_fenetre(int hauteur, int largeur, info infos) {
-    MLV_create_window("zngOthello", "", largeur, hauteur);
-    dess_plat();
-    dess_info(infos);
+  MLV_create_window("zngOthello", "", largeur, hauteur);
+  dess_plat();
+  dess_info(infos);
 }
 
 int fin(info i,int gagnant) {
@@ -146,23 +146,23 @@ void dess_pions(int **tab) {
 }
 
 void pose_pion_fail(int x, int y) {
-    int h = hauteur_fenetre();
+  int h = hauteur_fenetre();
   int c = h / 18;
   if(x<8 && x>=0 && y<8 && y>=0){
-  MLV_draw_rectangle(c * (2 * x + 1),
-                     c * (2 * y + 1),
-                     1.8 * c,
-                     1.8 * c,
-                     MLV_COLOR_RED);
-  MLV_actualise_window();
+    MLV_draw_rectangle(c * (2 * x + 1),
+		       c * (2 * y + 1),
+		       1.8 * c,
+		       1.8 * c,
+		       MLV_COLOR_RED);
+    MLV_actualise_window();
   }
 }
 
 int att_souris_clav(int *x, int *y) {
   MLV_Keyboard_button key;
-
-  int c = hauteur_fenetre()/ 18;
   int kom;
+  int c = hauteur_fenetre()/ 18;
+  
   int nx = 0;
   int ny = 0;
 
@@ -215,23 +215,23 @@ int att_souris_clav(int *x, int *y) {
 }
 
 /*
-   q sauvegarde et quitte
-   s sauvegarde
-   f fullscreen
-   echap menu
-   entrer = selection
- */
+  q sauvegarde et quitte
+  s sauvegarde
+  f fullscreen
+  echap menu
+  entrer = selection
+*/
 
 // Carré de couleur selection clavier
 void dess_apercu_selec(int x, int y) {
   int c = hauteur_fenetre() / 18;
   if(x<8 && x>=0 && y<8 && y>=0){
-  MLV_draw_rectangle(c * (2 * x + 1),
-                     c * (2 * y + 1),
-                     1.8 * c,
-                     1.8 * c,
-                     MLV_COLOR_BLACK);
-  MLV_actualise_window();
+    MLV_draw_rectangle(c * (2 * x + 1),
+		       c * (2 * y + 1),
+		       1.8 * c,
+		       1.8 * c,
+		       MLV_COLOR_BLACK);
+    MLV_actualise_window();
   }
 }
 
@@ -262,11 +262,12 @@ void creer_fen_menu() {
 
 void clean_fen_menu(){
   MLV_clear_window(MLV_COUL_PLATEAU);
-    int h = MLV_get_window_height();
+  int h = MLV_get_window_height();
   int w = MLV_get_window_width();
   int c = h * 0.1;
   int t_font = c * 0.8;
-   MLV_Font *font2 = MLV_load_font("assets/fonts/DevilBreeze.ttf", t_font);
+  MLV_Font *font2 = MLV_load_font("assets/fonts/DevilBreeze.ttf", t_font);
+  MLV_draw_text_with_font(1.5 * c, c *  1, "ZNG", font2, MLV_COLOR_BLACK);
   MLV_actualise_window();
 }
 
@@ -279,37 +280,39 @@ void bouton(float x, char *text) {
   MLV_Font *font = MLV_load_font("assets/fonts/pricedown.ttf", t_font);
  
 
-  MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, MLV_COLOR_BLACK);
   MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, x==8?MLV_COLOR_RED:MLV_COLOR_WHITE);
   MLV_draw_text_with_font(1.5 * c, c * (x + 1), text, font, x==8?MLV_COLOR_GREY:MLV_COLOR_BLACK);
   MLV_actualise_window();
 }
 
 int att_souris_menu(int *x) {
-  int nx, ny;
+  int nx=0, ny=0;
   int h=MLV_get_window_height();
   int w=MLV_get_window_width();
-  MLV_wait_keyboard_or_mouse(NULL, NULL, NULL, &nx, &ny);
+ 
+  MLV_wait_mouse( &nx, &ny);
   int xmin=0.135*w;
   int xmax=0.863*w;
-  if ((nx > xmin) && (ny < h*0.376) && (nx < xmax) && (ny > h*0.2)) {
-    return 1;
-  }
-  else if((nx > xmin) && (ny < h*0.47) && (nx < xmax) && (ny > h*0.376)){
-    return 2;
-  }
-  else if((nx > xmin) && (ny < h*0.648) && (nx < xmax) && (ny > h*0.55)) {
-    return 3;
-  }
-  else if((nx > xmin) && (ny < h*0.825) && (nx < xmax) && (ny > h*0.725)) {
-    return 4;
-  }
-  else if((nx > xmin) && (nx < xmax) && (ny > h*0.925 )) {
-    return 5;
-  }
-  else{
-    fprintf(stderr, "x%d y%d\n", nx, ny);
-  }
+ 
+    if ((nx > xmin) && (ny < h*0.376) && (nx < xmax) && (ny > h*0.2)) {
+      return 1;
+    }
+    else if((nx > xmin) && (ny < h*0.47) && (nx < xmax) && (ny > h*0.376)){
+      return 2;
+    }
+    else if((nx > xmin) && (ny < h*0.648) && (nx < xmax) && (ny > h*0.55)) {
+      return 3;
+    }
+    else if((nx > xmin) && (ny < h*0.825) && (nx < xmax) && (ny > h*0.725)) {
+      return 4;
+    }
+    else if((nx > xmin) && (nx < xmax) && (ny > h*0.925 )) {
+      return 5;
+    }
+    else{
+      fprintf(stderr, "x%d y%d\n", nx, ny);
+    }
+
 
   return 0;
 }

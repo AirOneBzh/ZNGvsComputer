@@ -20,13 +20,14 @@
 int jouer_coup_joueur(int joueur, int **plateau) {
   int r;
   int x = 0, y = 0;
+  int valide=0;
+  while(valide==0){
+    r = att_souris_clav(&x, &y);
 
-  r = att_souris_clav(&x, &y);
-
-  if (r == 1) {
-    pose_pion(joueur, x, y, plateau);
+    if (r == 1) {
+      valide=pose_pion(joueur, x, y, plateau);
+    }
   }
-
   return r;
 
   // resultat de att souris
@@ -59,17 +60,15 @@ int jeu(int hauteur, int largeur, info infos) {
   // creer fenetre
   creer_fenetre(hauteur, largeur, infos);
 
-  // dess_
-
 
   int r;
 
   // fin non atteinte
   //  !est_fini_partie(joueur,plateau)
   while (!est_fini_partie(joueur,plateau)) {
-      dess_plat();
-      infos.nb_pions=nb_pions(plateau);
-      dess_info(infos);
+    dess_plat();
+    infos.nb_pions=nb_pions(plateau);
+    dess_info(infos);
     dess_pions(plateau);
 
 
@@ -109,7 +108,7 @@ int jeu(int hauteur, int largeur, info infos) {
 
       /* TODO */
     }
-
+    
     joueur = opposant(joueur);
        if(tour==infos.niv1){
        tour=infos.niv2;
