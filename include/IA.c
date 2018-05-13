@@ -60,7 +60,7 @@ int minmax(int couleur, int min, int **plateau, int prof, liste l)
 {//A LA FIN DU PROG ON CONNAIT LA NOTE POUR UN COUP choisie
     int i, j;
     int **plateau_bis=copie_plateau(plateau);
-    if(prof == 0 || est_fini_partie(couleur, plateau_bis))
+    if(prof == 0 || !est_fini_partie(couleur, plateau_bis))
 	l=inserer_element_liste(l, evaluation(couleur, plateau));
 
     else{
@@ -142,25 +142,22 @@ int **jouer_coup_niveau1(int couleur, int **plateau){
 	for(j=1; j<=8; j++)
 	    if(coup_valide(couleur, i, j, plateau)){//stocker les notes
 		plateau_bis=copie_plateau(plateau);
-		//plateau_bis[i][j]=couleur;
 		pose_pion(couleur, i, j, plateau_bis);
 		if( minmax(opposant(couleur),opposant(couleur), plateau_bis, prof-1, l) > note ){
 		    betterX=i;
 		    betterY=j;
 		    note = minmax(opposant(couleur),opposant(couleur), plateau_bis, prof-1, l);
 		}
-		/*for(i=1; i<=10; i++)
-		  free(plateau_bis[i]);
-		  free(plateau_bis);*/
 	    }
-    //plateau[betterX][betterY]=couleur;
+    for(i=0; i<=9; i++)
+	free(plateau_bis[i]);
+    free(plateau_bis);
     pose_pion(couleur, betterX, betterY, plateau);
     return plateau;
 }
   
 int **jouer_coup_niveau2 (int couleur, int **plateau, int prof){
     //C'EST A couleur DE JOUER
-    printf("NIVEAU2\n");
     liste l=liste_vide();
     int **plateau_bis;
     int i, j, x, y, pro=prof;
@@ -169,18 +166,16 @@ int **jouer_coup_niveau2 (int couleur, int **plateau, int prof){
 	for(j=1; j<=8; j++)
 	    if(coup_valide(couleur, i, j, plateau)){//stock les notes
 		plateau_bis=copie_plateau(plateau);
-		//plateau_bis[i][j]=couleur;
 		pose_pion(couleur, i, j, plateau_bis);
 		if( minmax(opposant(couleur), opposant(couleur), plateau_bis, pro-1, l) > note ){
 		    x=i;
 		    y=j;
 		    note = minmax(opposant(couleur),opposant(couleur), plateau_bis, pro-1, l);
 		}
-		/*for(i=1; i<=10; i++)
-		  free(plateau_bis[i]);
-		  free(plateau_bis);*/
 	    }
-    //plateau[x][y]=couleur;
+    for(i=0; i<=9; i++)
+	free(plateau_bis[i]);
+    free(plateau_bis);
     pose_pion(couleur, x, y, plateau);
     return plateau;
 }
@@ -201,11 +196,11 @@ int **jouer_coup_niveau3(int couleur, int **plateau){
 		    betterY=j;
 		    note = alpha_beta(opposant(couleur), opposant(couleur), plateau_bis, INT_MIN, INT_MAX, l);
 		}
-		/*for(i=1; i<=10; i++)
-		  free(plateau_bis[i]);
-		  free(plateau_bis);*/
+
 	    }
-    //plateau[betterX][betterY]=couleur;
+    for(i=0; i<=9; i++)
+	free(plateau_bis[i]);
+    free(plateau_bis);
     pose_pion(couleur, betterX, betterY, plateau);
     return plateau;
 }
@@ -227,11 +222,11 @@ int **jouer_coup_niveau4(int couleur, int **plateau){
 		    betterY=j;
 		    note = minmax(opposant(couleur),opposant(couleur), plateau_bis, prof-1, l);
 		}
-		/*for(i=1; i<=10; i++)
-		  free(plateau_bis[i]);
-		  free(plateau_bis);*/
+		
 	    }
-    //plateau[betterX][betterY]=couleur;
+    for(i=0; i<=9; i++)
+	free(plateau_bis[i]);
+    free(plateau_bis);
     pose_pion(couleur, betterX, betterY, plateau);
     return plateau;
 }
