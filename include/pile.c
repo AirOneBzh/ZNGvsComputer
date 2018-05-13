@@ -24,7 +24,7 @@ pile depile_coup(pile p){
     free(p);
     return pnew;
 }
-pile ajoute_coup(int color, int i, int j, int **plateau, pile P){
+pile ajoute_coup(int color, int i, int j, pile P){
     //on ajoute le coup sur la pile
     pile pnew=(pile)allocation_mem(1, sizeof(struct_cellule));
     pnew->x=i;
@@ -33,14 +33,12 @@ pile ajoute_coup(int color, int i, int j, int **plateau, pile P){
     pnew->suivant=P;
 
     //mtn on ajoute le coup sur le plateau
-    plateau[i][j]=color;
+    //plateau[i][j]=color;
     return pnew;
 }
 
-pile retire_coup(int **plateau, pile p){
+pile retire_coup( pile p){
     //il suffit de retirer le coup dépiler du plateau
-    plateau[p->x][p->y]=VIDE;
-
     //puis de dépiler ce coup de la pile
     pile pnew=p->suivant;
     free(p);

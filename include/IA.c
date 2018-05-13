@@ -150,8 +150,8 @@ int **jouer_coup_niveau1(int couleur, int **plateau){
 		    note = minmax(opposant(couleur),opposant(couleur), plateau_bis, prof-1, l);
 		}
 		/*for(i=1; i<=10; i++)
-		    free(plateau_bis[i]);
-		    free(plateau_bis);*/
+		  free(plateau_bis[i]);
+		  free(plateau_bis);*/
 	    }
     //plateau[betterX][betterY]=couleur;
     pose_pion(couleur, betterX, betterY, plateau);
@@ -210,42 +210,29 @@ int **jouer_coup_niveau3(int couleur, int **plateau){
     return plateau;
 }
 
-int **jouer_coup_niveau4(int couleur, int **plateau, pile Chemin, pile coup, int eval, int betterX, int betterY){
-    int i, j;
-    for(i=1; i<=8; i++){
-	for(j=1; j<=8; j++){
-	    if(coup_valide(couleur, i, j, plateau) ){
-		if(  !est_fini_partie(couleur, plateau) ){
-		    Chemin=ajoute_coup(couleur, i, j, plateau, Chemin);
-		    jouer_coup_niveau4(opposant(couleur), plateau, Chemin, coup, eval, betterX, betterY);
+int **jouer_coup_niveau4(int couleur, int **plateau){
+    //C'EST A couleur DE JOUER
+    liste l=liste_vide();
+    int **plateau_bis;
+    int i, j, betterX, betterY, prof=INT_MAX;
+    int note = INT_MIN;
+    for(i=1; i<=8; i++)
+	for(j=1; j<=8; j++)
+	    if(coup_valide(couleur, i, j, plateau)){//stocker les notes
+		plateau_bis=copie_plateau(plateau);
+		//plateau_bis[i][j]=couleur;
+		pose_pion(couleur, i, j, plateau_bis);
+		if( minmax(opposant(couleur),opposant(couleur), plateau_bis, prof-1, l) > note ){
+		    betterX=i;
+		    betterY=j;
+		    note = minmax(opposant(couleur),opposant(couleur), plateau_bis, prof-1, l);
 		}
-	     
-		else { //la partie est finie on arrête d'empiler
-		    if(eval<evaluation(couleur, plateau) ){ //on a trouvé un meileur coup!
-			eval=evaluation(couleur, plateau);
-			//on enlève tous les coups "test" joués
-			while( !est_pile_vide(Chemin->suivant) )
-			    Chemin=retire_coup(plateau, Chemin);
-			//puis on récupère le coup à jouer
-			betterX=Chemin->x;
-			betterY=Chemin->y;
-			Chemin=retire_coup(plateau, Chemin);
-		    }
-		    while( !est_pile_vide(Chemin) )
-			Chemin=retire_coup(plateau, Chemin);
-		}
-	    }//fin de test si (i, j) est un coup valide	     
-	}//fin for y
-    }//fin for i
-    //on vérifie si notre pile de coup possible est vide
-    if( est_pile_vide(coup) ){//elle est vide on joue le meilleur coup
-	//plateau[betterX][betterY]=couleur;
-	pose_pion(couleur, betterX, betterY, plateau);
-    }
-    else{ //le plateau n'est pas vide on continue de chercher d'autres possibilités
-	coup=retire_coup(plateau, coup);
-	plateau=jouer_coup_niveau4(couleur, plateau, Chemin, coup, eval, betterX, betterY);
-    }
+		/*for(i=1; i<=10; i++)
+		  free(plateau_bis[i]);
+		  free(plateau_bis);*/
+	    }
+    //plateau[betterX][betterY]=couleur;
+    pose_pion(couleur, betterX, betterY, plateau);
     return plateau;
-}//end function
+}
 	     

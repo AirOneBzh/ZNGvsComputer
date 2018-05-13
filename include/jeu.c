@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include "mon_erreur.h"
 #include "allocation.h"
 #include "interface.h"
@@ -114,9 +115,9 @@ int jeu(int hauteur, int largeur, info infos) {
       break;
 
     case 40:
-
-      // jouer_coup_niveau4(joueur,plateau);
-      break;
+	attente(1);
+	plateau=jouer_coup_niveau4(joueur, plateau);
+	break;
 
       /* TODO */
     }

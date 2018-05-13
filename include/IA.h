@@ -27,5 +27,5 @@ int **jouer_coup_niveau2(int couleur, int **plateau, int prof);
 
 int **jouer_coup_niveau3(int couleur, int **plateau);
 
-int **jouer_coup_niveau4(int couleur, int **plateau, pile Chemin, pile coup, int eval, int betterX, int betterY);
+int **jouer_coup_niveau4(int couleur, int **plateau);
 #endif
