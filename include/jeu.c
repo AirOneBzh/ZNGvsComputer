@@ -77,7 +77,7 @@ int jeu(int hauteur, int largeur, info infos) {
     switch (tour) {
     /* TODO */
     case -10:
-      r = jouer_coup_joueur(joueur, plateau);
+	r = jouer_coup_joueur(joueur, plateau);
 
       if (r == -1) {
         return 1;
@@ -115,12 +115,12 @@ int jeu(int hauteur, int largeur, info infos) {
     }
     
     joueur = opposant(joueur);
-       if(tour==infos.niv1){
-       tour=infos.niv2;
-       }
-       else{
-       tour=infos.niv1;
-       }
+    if(tour==infos.niv1){
+	tour=infos.niv2;
+    }
+    else{
+	tour=infos.niv1;
+    }
 
        
 #ifdef TEST

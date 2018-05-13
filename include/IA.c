@@ -128,7 +128,7 @@ int **jouer_coup_niveau0(int couleur, int **plateau){
 	nb_coup-=1;
     }
     
-    plateau[p->x][p->y]=couleur; // pose pion
+    pose_pion(couleur, p->x, p->y, plateau);
     return plateau;
 }
 
