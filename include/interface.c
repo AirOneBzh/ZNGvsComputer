@@ -39,15 +39,19 @@ void creer_fenetre(int hauteur, int largeur, info infos) {
   dess_info(infos);
 }
 
-int fin(info i,int perdant) {
+int fin(info i,int joueur) {
   int h=hauteur_fenetre();
   int w=largeur_fenetre();
-   int c = h * 0.1;
+  int c = h * 0.1;
   int t_font = c * 0.8;
   MLV_Font *font = MLV_load_font("assets/fonts/pricedown.ttf", t_font);
   char gagnan[50];
-  int gagnant = opposant(perdant);
-  sprintf(gagnan,"Joueur %d avec %d pions",gagnant,i.nb_pions[gagnant]);
+  int gagnant;
+  if(i.nb_pions[1]<i.nb_pions[2])
+    gagnant=2;
+  else
+    gagnant=1;
+  sprintf(gagnan,"%s avec %d pions",gagnant==1?i.joueur_1:i.joueur_2,i.nb_pions[gagnant]);
   // pour \n dans draw text -> box sinon une seule ligne
   MLV_draw_filled_rectangle(0,0,h,w,MLV_COUL_PLATEAU);
    MLV_draw_filled_rectangle(0.1*h,0.4*w,h,w,gagnant==1?MLV_COLOR_WHITE:MLV_COLOR_BLACK);
