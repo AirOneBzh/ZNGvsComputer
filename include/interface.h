@@ -24,7 +24,6 @@ void affiche_fin_ZNG();
 int largeur_fenetre();
 int hauteur_fenetre();
 
-//
 int  fin(info i,int gagnant);
 
 /* Dessine plateau en effacant le précédent */
