@@ -86,24 +86,24 @@ int jeu(int hauteur, int largeur, info infos) {
 
     case 0:
       attente(1);
-      jouer_coup_niveau0(joueur, plateau);
+      plateau=jouer_coup_niveau0(joueur, plateau);
       break;
 
     case 10:
       attente(1);
-      jouer_coup_niveau1(joueur, plateau);
+      plateau=jouer_coup_niveau1(joueur, plateau);
       break;
 
     case 20:
       attente(1);
       prof = tour - 20;
-      jouer_coup_niveau2(joueur, plateau, prof);
+      plateau=jouer_coup_niveau2(joueur, plateau, prof);
       break;
 
     case 30:
       attente(1);
       prof = tour - 30;
-      jouer_coup_niveau3(joueur, plateau);
+      plateau=jouer_coup_niveau3(joueur, plateau);
       break;
 
     case 40:
@@ -244,7 +244,7 @@ int pose_pion(int couleur, int i, int j, int **plateau) {
 // OK
 int cap_haut(int couleur, int i, int j, int **plateau) {
   int i_bis = i - 1, adv = 0;
-
+  if(plateau[i_bis][j]==couleur) return 0;
   while (i_bis > 0) {
     if ((plateau[i_bis][j] == couleur) && (adv > 0)) return 1;
 
@@ -258,7 +258,7 @@ int cap_haut(int couleur, int i, int j, int **plateau) {
 
 int cap_bas(int couleur, int i, int j, int **plateau) {
   int i_bis = i + 1, adv = 0;
-
+  if(plateau[i_bis][j]==couleur) return 0;
   while (i_bis < 9) {
     if ((plateau[i_bis][j] == couleur) && (adv > 0)) return 1;
 
@@ -272,7 +272,7 @@ int cap_bas(int couleur, int i, int j, int **plateau) {
 
 int cap_droit(int couleur, int i, int j, int **plateau) {
   int j_bis = j + 1, adv = 0;
-
+  if(plateau[i][j_bis]==couleur) return 0;
   while (j_bis < 9) {
     if ((plateau[i][j_bis] == couleur) && (adv > 0)) return 1;
 
@@ -287,7 +287,7 @@ int cap_droit(int couleur, int i, int j, int **plateau) {
 
 int cap_gauche(int couleur, int i, int j, int **plateau) {
   int j_bis = j - 1, adv = 0;
-
+  if(plateau[i][j_bis]==couleur) return 0;
   while (j_bis > 0) {
     if ((plateau[i][j_bis] == couleur) && (adv > 0)) return 1;
 
@@ -302,7 +302,7 @@ int cap_gauche(int couleur, int i, int j, int **plateau) {
 // OK
 int cap_diag_haut_droit(int couleur, int i, int j, int **plateau) {
   int i_bis = i - 1, j_bis = j + 1, adv = 0;
-
+  if(plateau[i_bis][j_bis]==couleur) return 0;
   while (i_bis > 0 || j_bis < 9) {
     if ((plateau[i_bis][j_bis] == couleur) && (adv > 0)) return 1;
 
@@ -318,7 +318,7 @@ int cap_diag_haut_droit(int couleur, int i, int j, int **plateau) {
 // OK
 int cap_diag_haut_gauche(int couleur, int i, int j, int **plateau) {
   int i_bis = i - 1, j_bis = j - 1, adv = 0;
-
+  if(plateau[i_bis][j_bis]==couleur) return 0;
   while (i_bis > 0 || j_bis > 0) {
     if ((plateau[i_bis][j_bis] == couleur) && (adv > 0)) return 1;
 
@@ -334,7 +334,7 @@ int cap_diag_haut_gauche(int couleur, int i, int j, int **plateau) {
 // OK
 int cap_diag_bas_droit(int couleur, int i, int j, int **plateau) {
   int i_bis = i + 1, j_bis = j + 1, adv = 0;
-
+  if(plateau[i_bis][j_bis]==couleur) return 0;
   while (i_bis < 9 || j_bis < 9) {
     if ((plateau[i_bis][j_bis] == couleur) && (adv > 0)) return 1;
 
@@ -350,7 +350,7 @@ int cap_diag_bas_droit(int couleur, int i, int j, int **plateau) {
 // OK
 int cap_diag_bas_gauche(int couleur, int i, int j, int **plateau) {
   int i_bis = i + 1, j_bis = j - 1, adv = 0;
-
+  if(plateau[i_bis][j_bis]==couleur) return 0;
   while (i_bis < 9 || j_bis > 0) {
     if ((plateau[i_bis][j_bis] == couleur) && (adv > 0)) return 1;
 
