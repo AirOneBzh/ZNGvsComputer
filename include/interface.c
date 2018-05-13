@@ -239,34 +239,16 @@ void dess_apercu_selec(int x, int y) {
 /* Interface Menu */
 /******************/
 
-int input_char(char *c){
-  int h=MLV_get_window_height();
-  int w=MLV_get_window_width();
-  char *input;
-  MLV_wait_input_box(0.1*w,0.3*h,
-		     0.8*w,0.25*h,
-		     MLV_COLOR_RED,MLV_COLOR_GREEN,MLV_COLOR_BLACK,
-		     "      Nom joueur   ",&input);
-  strcpy(c,input);
-  
-  return 1;
-}
 
-int input_int(int *x){
+void input(char *message,char *in){
+  char *input;
   int h=MLV_get_window_height();
   int w=MLV_get_window_width();
-  char *input;
-  int i;
   MLV_wait_input_box(0.1*w,0.3*h,
 		     0.8*w,0.25*h,
 		     MLV_COLOR_RED,MLV_COLOR_GREEN,MLV_COLOR_BLACK,
-		     "     Joueur (-1) IA (niv (0->4)   ",&input);
-  for(i=0;i<strlen(input);i++){
-    if(!isdigit(input[i]))
-      return 0;
-  }
-  *x=atoi(input);
-  return 1;
+		     message,&input);
+  sprintf(in,"%s",input);
 }
 
 void creer_fen_menu() {

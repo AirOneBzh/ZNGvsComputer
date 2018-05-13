@@ -28,6 +28,7 @@ int jeu(int hauteur,int largeur, info infos) {
   int   i;
   int   x, y, joueur = NOIR;
   int tour=infos.niv1;
+  int prof;
   // J1 NOIR
   // J2 BLANC
   x       = y = 0;
@@ -54,23 +55,24 @@ int jeu(int hauteur,int largeur, info infos) {
     
     switch(tour){
       /* TODO */      
-    case -1:
+    case -10:
       jouer_coup_joueur();
       break;
     case 0:
       jouer_coup_niveau0(joueur,plateau);
       break;
-    case 1:
+    case 10:
       jouer_coup_niveau1(joueur,plateau);
       break;
-    case 2:
-      // change profondeur
-      jouer_coup_niveau2(joueur,plateau,3);
+    case 20:
+      prof=tour-20;
+      jouer_coup_niveau2(joueur,plateau,prof);
       break;
-    case 3:
+    case 30:
+       prof=tour-30;
       jouer_coup_niveau3(joueur,plateau);
       break;
-    case 4:
+    case 40:
       //jouer_coup_niveau4(joueur,plateau);
       break;
 

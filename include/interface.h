@@ -44,8 +44,8 @@ void dess_apercu_selec(int x,
 
 
 // interface Menu
-int input_char(char *c);
-int input_int(int *x);
+void input(char *message,char *in);
+
 void creer_fen_menu();
 void clean_fen_menu();
 void bouton(float x,
