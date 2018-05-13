@@ -161,6 +161,9 @@ int **jouer_coup_niveau2 (int couleur, int **plateau, int prof){
 			y=j;
 			note = minmax(opposant(couleur),opposant(couleur), plateau_bis, prof-1, l);
 				      }
+		for(i=1; i<=10; i++)
+		    free(plateau_bis[i]);
+		free(plateau_bis);
 	    }
     plateau[x][y]=couleur; // pose pion
     return plateau;
@@ -181,6 +184,9 @@ int **jouer_coup_niveau3(int couleur, int **plateau){
 		    betterY=j;
 		    note = alpha_beta(opposant(couleur), opposant(couleur), plateau_bis, INT_MIN, INT_MAX, l);
 		}
+		for(i=1; i<=10; i++)
+		    free(plateau_bis[i]);
+		free(plateau_bis);
 	    }
     plateau[betterX][betterY]=couleur;
     return plateau;
