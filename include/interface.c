@@ -23,7 +23,7 @@
 void dess_info(info i);
 
 int  hauteur_fenetre() {
-    return 0.8*MLV_get_desktop_height();
+    return 0.8*MLV_get_desktop_height ();
 }
 
 int largeur_fenetre(){
@@ -36,27 +36,25 @@ void creer_fenetre(int hauteur, int largeur, info infos) {
     dess_info(infos);
 }
 
-int fin() {
-  MLV_create_window("","",largeur_fenetre(),hauteur_fenetre());
-  int h =100;
-  int w=90;
+int fin(info i,int gagnant) {
+  int h=hauteur_fenetre();
+  int w=largeur_fenetre();
   MLV_Image *image;
   int image_width, image_height; // , text_width, text_height;
-  const char *text = "Ordinateur Gagne! \n Esc pour retour menu.";
-
+  const char *text = "Gagne! \n Esc pour retour menu.";
+  char *gagnan= gagnant==1?"Joueur 1":"Joueur 2";
   // pour \n dans draw text -> box sinon une seule ligne
   image = MLV_load_image("assets/images/gameover.jpg");
   MLV_resize_image_with_proportions(image, w, h);
   MLV_get_image_size(image, &image_width, &image_height);
   MLV_draw_image(image, 0, 0);
   MLV_get_size_of_text(text, &image_width, &image_height);
-  MLV_draw_text(w / 3.5, h - 90, text, MLV_COLOR_GREEN);
-
+  MLV_draw_text(w / 3.5, h - 90, gagnan, MLV_COLOR_GREEN);
 
   MLV_actualise_window();
-  MLV_wait_seconds(60);
+  MLV_wait_keyboard(NULL,NULL,NULL);
   MLV_free_image(image);
-  MLV_free_window();
+
   return 0;
 }
 
@@ -96,7 +94,7 @@ void dess_info(info i) {
   sprintf(pion_2,"%d",i.nb_pions[2]);
   sprintf(pion_t,"%d",i.nb_pions[0]);
   MLV_Font *font = MLV_load_font("assets/fonts/pricedown.ttf", t_font);
-  fprintf(stderr,"hauteur %d largeur %d ",h,w);
+
   MLV_draw_filled_rectangle(h, 0.5, 7*h/9, h, MLV_COUL_PLATEAU);
   MLV_draw_text_with_font(1.1*h,0.2*h,"zngOthello",font,MLV_rgba(177,86,149,255));
   MLV_draw_text_with_font(1.1*h,0.3*h,i.joueur_1,font,MLV_COLOR_BLACK);
@@ -118,7 +116,9 @@ void free_jeu() {
 // Dessine les pions tels que disposés dans tab([8][8])
 void dess_pions(int **tab) {
   int i, j;
-  int h = MLV_get_window_height();
+  fprintf(stderr,"GDB1   ");
+  int h = hauteur_fenetre();
+  fprintf(stderr,"GDB2\n");
   int c = h / 18;
 
   for (j = 1; j <= 8; j++) {
@@ -146,8 +146,8 @@ void dess_pions(int **tab) {
 }
 
 void pose_pion_fail(int x, int y) {
-  int c = MLV_get_window_height() / 18;
-  fprintf(stderr,"aprercu %d %d\n",x,y);
+    int h = hauteur_fenetre();
+  int c = h / 18;
   if(x<8 && x>=0 && y<8 && y>=0){
   MLV_draw_rectangle(c * (2 * x + 1),
                      c * (2 * y + 1),
@@ -161,7 +161,7 @@ void pose_pion_fail(int x, int y) {
 int att_souris_clav(int *x, int *y) {
   MLV_Keyboard_button key;
 
-  int c = MLV_get_window_height() / 18;
+  int c = hauteur_fenetre()/ 18;
   int kom;
   int nx = 0;
   int ny = 0;
@@ -224,8 +224,7 @@ int att_souris_clav(int *x, int *y) {
 
 // Carré de couleur selection clavier
 void dess_apercu_selec(int x, int y) {
-  int c = MLV_get_window_height() / 18;
-  fprintf(stderr,"aprercu %d %d\n",x,y);
+  int c = hauteur_fenetre() / 18;
   if(x<8 && x>=0 && y<8 && y>=0){
   MLV_draw_rectangle(c * (2 * x + 1),
                      c * (2 * y + 1),
@@ -243,8 +242,8 @@ void dess_apercu_selec(int x, int y) {
 
 void input(char *message,char *in){
   char *input;
-  int h=MLV_get_window_height();
-  int w=MLV_get_window_width();
+  int h=hauteur_fenetre();
+  int w=largeur_fenetre();
   MLV_wait_input_box(0.1*w,0.3*h,
 		     0.8*w,0.25*h,
 		     MLV_COLOR_RED,MLV_COLOR_GREEN,MLV_COLOR_BLACK,
@@ -263,6 +262,11 @@ void creer_fen_menu() {
 
 void clean_fen_menu(){
   MLV_clear_window(MLV_COUL_PLATEAU);
+    int h = MLV_get_window_height();
+  int w = MLV_get_window_width();
+  int c = h * 0.1;
+  int t_font = c * 0.8;
+   MLV_Font *font2 = MLV_load_font("assets/fonts/DevilBreeze.ttf", t_font);
   MLV_actualise_window();
 }
 
@@ -272,8 +276,8 @@ void bouton(float x, char *text) {
   int c = h * 0.1;
 
   int t_font = c * 0.8;
-
   MLV_Font *font = MLV_load_font("assets/fonts/pricedown.ttf", t_font);
+ 
 
   MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, MLV_COLOR_BLACK);
   MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, x==8?MLV_COLOR_RED:MLV_COLOR_WHITE);
@@ -285,7 +289,6 @@ int att_souris_menu(int *x) {
   int nx, ny;
   int h=MLV_get_window_height();
   int w=MLV_get_window_width();
-  fprintf(stderr,"%d %d",MLV_get_window_height(),MLV_get_window_width());
   MLV_wait_keyboard_or_mouse(NULL, NULL, NULL, &nx, &ny);
   int xmin=0.135*w;
   int xmax=0.863*w;

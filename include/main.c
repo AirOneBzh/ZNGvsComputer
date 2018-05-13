@@ -134,8 +134,9 @@ int main(void) {
   strcpy(infos.joueur_2,"Joueur 2");
   infos.niv1=-10;
   infos.niv2=0;
-  creer_fen_menu();
+ 
   while (j == 1) {
+     creer_fen_menu();
     clean_fen_menu();
     // lance le jeu
     bouton(   1, "Jouer");
@@ -156,7 +157,7 @@ int main(void) {
     case 1:
       free_jeu();
       jeu(hauteur_fenetre(),largeur_fenetre(),infos);
-      fprintf(stderr,"case");
+      fprintf(stderr,"Retour Menu\n");
       break;
     case 2:
       system("evince assets/Livret.pdf");
@@ -172,7 +173,7 @@ int main(void) {
     default:
       break;
     }
-
+    free_jeu();
     // free_fen_menu
 
   }

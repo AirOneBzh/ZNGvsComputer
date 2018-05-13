@@ -22,7 +22,6 @@ int jouer_coup_joueur(int joueur, int **plateau) {
   int x = 0, y = 0;
 
   r = att_souris_clav(&x, &y);
-  fprintf(stderr, "rrrrr %d %d", x, y);
 
   if (r == 1) {
     pose_pion(joueur, x, y, plateau);
@@ -73,7 +72,6 @@ int jeu(int hauteur, int largeur, info infos) {
       dess_info(infos);
     dess_pions(plateau);
 
-    fprintf(stderr, "Tour %d", tour);
 
     switch (tour) {
     /* TODO */
@@ -112,20 +110,20 @@ int jeu(int hauteur, int largeur, info infos) {
       /* TODO */
     }
 
-    /*joueur = opposant(joueur);
+    joueur = opposant(joueur);
        if(tour==infos.niv1){
        tour=infos.niv2;
        }
        else{
        tour=infos.niv1;
-       }*/
+       }
 
-
+       
 #ifdef TEST
-    f = 1;
+       f = 1;
 #endif /* ifdef TEST */
   }
-  free_jeu();
+  fin(infos,joueur);
   return 1;
 }
 
@@ -155,8 +153,6 @@ int pose_pion(int couleur, int i, int j, int **plateau) {
   // int acc;
   int valide = coup_valide(couleur, i, j, plateau);
 
-  fprintf(stderr, "valide %d \n", valide);
-
   if (valide) plateau[i][j] = couleur;
 
   // else return 0;
@@ -169,7 +165,6 @@ int pose_pion(int couleur, int i, int j, int **plateau) {
   int c_hg=cap_diag_haut_gauche( couleur,  i,  j,  plateau);
   int c_bd=cap_diag_bas_droit( couleur,  i,  j,  plateau);
   int c_bg=cap_diag_bas_gauche( couleur,  i,  j,  plateau);
-  fprintf(stderr,"ppo%d\n",c_h);
   int ibis, jbis;
   if(c_h){
       ibis=i-1;
@@ -431,7 +426,7 @@ int* nb_pions(int **plateau) {
 }
 
 int est_fini_partie(int couleur, int **plateau) {
-  fprintf(stderr, "fini?");
+
   int *etat = nb_pions(plateau);
 
   // fprintf(stderr,"nb pions %d",etat[0]);

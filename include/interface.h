@@ -25,7 +25,7 @@ int largeur_fenetre();
 int hauteur_fenetre();
 
 //
-int  fin();
+int  fin(info i,int gagnant);
 
 // Dessine plateau en effacant le précédent
 void dess_plat();
