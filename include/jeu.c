@@ -424,8 +424,8 @@ int* nb_pions(int **plateau) {
       if (plateau[i][j] == NOIR) n++;
     }
   blanc_noir[0] = b + n;
-  blanc_noir[1] = b;
-  blanc_noir[2] = n;
+  blanc_noir[1] = n;
+  blanc_noir[2] = b;
   return blanc_noir;
 }
 
