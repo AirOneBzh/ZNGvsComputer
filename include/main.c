@@ -19,7 +19,7 @@
 void change_nom(char *nom){
   int correct=0;
   while(correct==0){
-    input("Nom joueur",nom);
+    input("   Nom joueur   ",nom);
     if(strlen(nom)<2 || strlen(nom)>8){
       correct=0;
     }
@@ -50,7 +50,7 @@ void change_joueuria(int *niv){
       }
     }
   }
-  if(*niv==20 || *niv==30){
+  if(*niv==20){
     correct=0;
     while(correct==0){
       input("    Profondeur IA (1->9)   ",in);
@@ -98,6 +98,7 @@ void joueurs(info *info){
 
     // modifie Joueur 1 -> IA nom
     bouton(6.25, btn4);
+    bouton(8, "Retour");
 
     c = att_souris_menu(NULL);
     switch(c){
@@ -148,6 +149,7 @@ int main(void) {
 
     // modifie Joueur 1 -> IA nom
     bouton(6.25, "Joueurs");
+    bouton(8, "Quitter");
 
     c = att_souris_menu(&x);
     switch(c){

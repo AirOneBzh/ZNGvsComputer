@@ -275,29 +275,32 @@ void bouton(float x, char *text) {
   MLV_Font *font = MLV_load_font("assets/fonts/pricedown.ttf", t_font);
 
   MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, MLV_COLOR_BLACK);
-  MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, MLV_COLOR_WHITE);
-  MLV_draw_text_with_font(1.5 * c, c * (x + 1), text, font, MLV_COLOR_BLACK);
+  MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, x==8?MLV_COLOR_RED:MLV_COLOR_WHITE);
+  MLV_draw_text_with_font(1.5 * c, c * (x + 1), text, font, x==8?MLV_COLOR_GREY:MLV_COLOR_BLACK);
   MLV_actualise_window();
 }
 
 int att_souris_menu(int *x) {
   int nx, ny;
-  
+  int h=MLV_get_window_height();
+  int w=MLV_get_window_width();
+  fprintf(stderr,"%d %d",MLV_get_window_height(),MLV_get_window_width());
   MLV_wait_keyboard_or_mouse(NULL, NULL, NULL, &nx, &ny);
-
-  if ((nx < 466) && (ny < 217) && (nx > 73) && (ny > 145)) {
+  int xmin=0.135*w;
+  int xmax=0.863*w;
+  if ((nx > xmin) && (ny < h*0.376) && (nx < xmax) && (ny > h*0.2)) {
     return 1;
   }
-  else if((nx < 466) && (ny < 339) && (nx > 73) && (ny > 271)){
+  else if((nx > xmin) && (ny < h*0.47) && (nx < xmax) && (ny > h*0.376)){
     return 2;
   }
-  else if((nx < 466) && (ny < 467) && (nx > 73) && (ny > 396)) {
+  else if((nx > xmin) && (ny < h*0.648) && (nx < xmax) && (ny > h*0.55)) {
     return 3;
   }
-  else if((nx < 466) && (ny < 594) && (nx > 73) && (ny > 522)) {
+  else if((nx > xmin) && (ny < h*0.825) && (nx < xmax) && (ny > h*0.725)) {
     return 4;
   }
-   else if((nx < 466) && (nx > 73) && (ny > 594)) {
+  else if((nx > xmin) && (nx < xmax) && (ny > h*0.925 )) {
     return 5;
   }
   else{
