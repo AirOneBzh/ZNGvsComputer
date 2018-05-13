@@ -205,6 +205,7 @@ int att_souris_clav(int *x, int *y) {
   else if (kom == MLV_MOUSE_BUTTON) {
     *x = (nx - c) / (2 * c);
     *y = (ny - c) / (2 * c);
+    return 1;
   }
   else {
     fprintf(stderr, "wait_keyboard_or_mouse renvoi autre chose que key ou mouse");

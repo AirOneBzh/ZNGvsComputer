@@ -32,7 +32,7 @@ void dess_plat();
 
 // Dessine le tableau de pions 0 rien 1 blanc 2 noir
 void dess_pions(int **tab);
-
+void pose_pion_fail(int x, int y);
 // Attends une intéraction souris ou clavier retourne 1 si le pion doit être
 // posé
 int att_souris_clav(int *x,
