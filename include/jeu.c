@@ -81,7 +81,7 @@ int jeu(int hauteur, int largeur, info infos) {
 
 
     switch (tour) {
-      /* TODO */
+      
     case -10:
       r = jouer_coup_joueur(joueur, plateau);
 
@@ -124,7 +124,6 @@ int jeu(int hauteur, int largeur, info infos) {
       plateau=jouer_coup_niveau4(joueur, plateau);
       break;
 	
-      /* TODO */
     }
     
     joueur = opposant(joueur);
@@ -176,7 +175,7 @@ int pose_pion(int couleur, int i, int j, int **plateau) {
   if (valide) plateau[i][j] = couleur;
 
   /* else return 0; */
-  //
+  
   int c_h=cap_haut( couleur,  i, j,  plateau);
   int c_b=cap_bas( couleur,  i,  j,  plateau);
   int c_d=cap_droit( couleur,  i,  j,  plateau);

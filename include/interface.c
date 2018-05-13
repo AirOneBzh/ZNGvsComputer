@@ -127,7 +127,7 @@ void dess_info(info i) {
   MLV_draw_text_with_font(1.6*h,0.2*h,"Niv",font,MLV_rgba(220,192,97,255));
   
   MLV_actualise_window();
-  // 
+  
 }
 
 void free_jeu() {

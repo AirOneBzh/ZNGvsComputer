@@ -19,8 +19,8 @@ OBJ= $(SRC:.c=.o)
 all:clean prog propre
 
 PATH_SRC=../include/
-LISTETEST=  $(PATH_SRC)allocation.o $(PATH_SRC)mon_erreur.o $(PATH_SRC)interface.o $(PATH_SRC)jeu.o test_jeu.o
-test: clean prog_test propre
+debug: clean prog propre
+	gdb prog
 
 prog_test: $(LISTETEST)
 	@$(CC) $^ -o $@ $(lDFLAGS) $(CFLAGS) $(LDLIBS)
@@ -32,7 +32,7 @@ prog : $(LISTEPROG)
 	@$(CC) $^ -o $@ $(lDFLAGS) $(CFLAGS) $(LDLIBS)
 	#
 	# Lancer prog pour lancer le programme
-	#     make debug     pour trouver segfault
+	#     make debug   et run  pour trouver segfault
 	#
 #dans la ligne du dessus il y a une tabulation en debut ligne !!
 

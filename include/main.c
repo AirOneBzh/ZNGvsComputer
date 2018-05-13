@@ -124,7 +124,7 @@ void joueurs(info *info){
 
 
 
-int main(void) {
+int main(int argc,char *argv[]) {
   /* creer fenetre menu -> interface.c */
   
   int j = 1, x, c;
@@ -179,4 +179,5 @@ int main(void) {
 
   }
       free_jeu();
+      return 1;
 }
