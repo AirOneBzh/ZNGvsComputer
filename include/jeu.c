@@ -251,7 +251,7 @@ int cap_haut(int couleur, int i, int j, int **plateau) {
 
     if (plateau[i_bis][j] == VIDE) return 0;
 
-    adv   += 1;
+    if(plateau[i_bis][j] == opposant(couleur))adv   += 1;
     i_bis -= 1;
   }
   return 0;
@@ -265,7 +265,7 @@ int cap_bas(int couleur, int i, int j, int **plateau) {
 
     if (plateau[i_bis][j] == VIDE) return 0;
 
-    adv   += 1;
+    if(plateau[i_bis][j] == opposant(couleur))adv   += 1;
     i_bis += 1;
   }
   return 0;
@@ -279,7 +279,7 @@ int cap_droit(int couleur, int i, int j, int **plateau) {
 
     if (plateau[i][j_bis] == VIDE) return 0;
 
-    adv   += 1;
+    if(plateau[i][j_bis] == opposant(couleur))adv   += 1;
     j_bis += 1;
   }
   return 0;
@@ -293,7 +293,7 @@ int cap_gauche(int couleur, int i, int j, int **plateau) {
 
     if (plateau[i][j_bis] == VIDE) return 0;
 
-    adv   += 1;
+    if(plateau[i][j_bis] == opposant(couleur))adv   += 1;
     j_bis -= 1;
   }
   return 0;
@@ -308,7 +308,7 @@ int cap_diag_haut_droit(int couleur, int i, int j, int **plateau) {
 
     if (plateau[i_bis][j_bis] == VIDE) return 0;
 
-    adv   += 1;
+    if(plateau[i_bis][j_bis] == opposant(couleur))adv   += 1;
     i_bis -= 1;
     j_bis += 1;
   }
@@ -324,7 +324,7 @@ int cap_diag_haut_gauche(int couleur, int i, int j, int **plateau) {
 
     if (plateau[i_bis][j_bis] == VIDE) return 0;
 
-    adv   += 1;
+    if(plateau[i_bis][j_bis] == opposant(couleur))adv   += 1;
     i_bis -= 1;
     j_bis -= 1;
   }
@@ -340,7 +340,7 @@ int cap_diag_bas_droit(int couleur, int i, int j, int **plateau) {
 
     if (plateau[i_bis][j_bis] == VIDE) return 0;
 
-    adv   += 1;
+    if(plateau[i_bis][j_bis] == opposant(couleur))adv   += 1;
     i_bis += 1;
     j_bis += 1;
   }
@@ -356,7 +356,7 @@ int cap_diag_bas_gauche(int couleur, int i, int j, int **plateau) {
 
     if (plateau[i_bis][j_bis] == VIDE) return 0;
 
-    adv   += 1;
+    if(plateau[i_bis][j_bis] == opposant(couleur))adv   += 1;
     i_bis += 1;
     j_bis -= 1;
   }
