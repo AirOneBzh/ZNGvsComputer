@@ -80,7 +80,7 @@ int minmax(int couleur, int min, int **plateau, int prof, liste l)
 int alpha_beta(int couleur, int min, int **plateau, int alpha, int beta, liste l){
     int **plateau_bis=copie_plateau(plateau);
     int i, j;
-    if( est_fini_partie(couleur, plateau_bis) )
+    if( !continue_partie(couleur, plateau_bis) )
 	return evaluation(couleur, plateau);
     else{ //pour tous les successeurs
 	for( i=1; i <= 8 ; i++ )
