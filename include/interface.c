@@ -19,7 +19,10 @@
 
 #define MLV_COUL_PLATEAU MLV_rgba(1, 105, 56, 255)
 
-
+// attente pour tour de bots
+void attente(int n){
+  MLV_wait_seconds(n);
+}
 void dess_info(info i);
 
 int  hauteur_fenetre() {
@@ -39,21 +42,17 @@ void creer_fenetre(int hauteur, int largeur, info infos) {
 int fin(info i,int gagnant) {
   int h=hauteur_fenetre();
   int w=largeur_fenetre();
-  MLV_Image *image;
-  int image_width, image_height; // , text_width, text_height;
-  const char *text = "Gagne! \n Esc pour retour menu.";
-  char *gagnan= gagnant==1?"Joueur 1":"Joueur 2";
+   int c = h * 0.1;
+  int t_font = c * 0.8;
+  MLV_Font *font = MLV_load_font("assets/fonts/pricedown.ttf", t_font);
+  char gagnan[50];
+  sprintf(gagnan,"Joueur %d %d pions",gagnant,i.nb_pions[gagnant]);
   // pour \n dans draw text -> box sinon une seule ligne
-  image = MLV_load_image("assets/images/gameover.jpg");
-  MLV_resize_image_with_proportions(image, w, h);
-  MLV_get_image_size(image, &image_width, &image_height);
-  MLV_draw_image(image, 0, 0);
-  MLV_get_size_of_text(text, &image_width, &image_height);
-  MLV_draw_text(w / 3.5, h - 90, gagnan, MLV_COLOR_GREEN);
-
+  MLV_draw_filled_rectangle(0,0,h,w,MLV_COUL_PLATEAU);
+  MLV_draw_text_with_font(0.4*h,0.4*w,gagnan,font,MLV_COLOR_BLACK);
   MLV_actualise_window();
   MLV_wait_keyboard(NULL,NULL,NULL);
-  MLV_free_image(image);
+ 
 
   return 0;
 }
@@ -86,7 +85,7 @@ void dess_plat() {
 
 void dess_info(info i) {
   int h=hauteur_fenetre();
-  int w=largeur_fenetre();
+  //int w=largeur_fenetre();
   int c = h * 0.1;
   char pion_1[5],pion_2[5],pion_t[5];
   int t_font = c * 0.8;
@@ -116,11 +115,9 @@ void free_jeu() {
 // Dessine les pions tels que disposés dans tab([8][8])
 void dess_pions(int **tab) {
   int i, j;
-  fprintf(stderr,"GDB1   ");
   int h = hauteur_fenetre();
-  fprintf(stderr,"GDB2\n");
   int c = h / 18;
-
+  
   for (j = 1; j <= 8; j++) {
     for (i = 1; i <= 8; i++) {
       if (tab[j][i] == BLANC) {
@@ -128,7 +125,7 @@ void dess_pions(int **tab) {
                                MLV_COLOR_WHITE);
         MLV_draw_filled_circle((i * 2) * c, (j * 2) * c, 0.7 * c,
                                MLV_COLOR_BLACK);
-        MLV_draw_filled_circle((i * 2) * c, (j * 2) * c, 0.6 * c,
+	MLV_draw_filled_circle((i * 2) * c, (j * 2) * c, 0.6 * c,
                                MLV_COLOR_WHITE);
       }
 
@@ -263,11 +260,13 @@ void creer_fen_menu() {
 void clean_fen_menu(){
   MLV_clear_window(MLV_COUL_PLATEAU);
   int h = MLV_get_window_height();
-  int w = MLV_get_window_width();
+  //int w = MLV_get_window_width();
   int c = h * 0.1;
   int t_font = c * 0.8;
+  MLV_Font *font1 = MLV_load_font("assets/fonts/DevilBreeze.ttf", 0.7*t_font);
   MLV_Font *font2 = MLV_load_font("assets/fonts/DevilBreeze.ttf", t_font);
-  MLV_draw_text_with_font(1.5 * c, c *  1, "ZNG", font2, MLV_COLOR_BLACK);
+  MLV_draw_text_with_font(1.5 * c, c , "ZNG", font1, MLV_COLOR_BLACK);
+  MLV_draw_text_with_font(2.6 * c, 0.9*c , "Othello", font2, MLV_COLOR_BLACK);
   MLV_actualise_window();
 }
 
@@ -294,25 +293,24 @@ int att_souris_menu(int *x) {
   int xmin=0.135*w;
   int xmax=0.863*w;
  
-    if ((nx > xmin) && (ny < h*0.376) && (nx < xmax) && (ny > h*0.2)) {
-      return 1;
-    }
-    else if((nx > xmin) && (ny < h*0.47) && (nx < xmax) && (ny > h*0.376)){
-      return 2;
-    }
-    else if((nx > xmin) && (ny < h*0.648) && (nx < xmax) && (ny > h*0.55)) {
-      return 3;
-    }
-    else if((nx > xmin) && (ny < h*0.825) && (nx < xmax) && (ny > h*0.725)) {
-      return 4;
-    }
-    else if((nx > xmin) && (nx < xmax) && (ny > h*0.925 )) {
-      return 5;
-    }
-    else{
-      fprintf(stderr, "x%d y%d\n", nx, ny);
-    }
-
+  if ((nx > xmin) && (ny < h*0.376) && (nx < xmax) && (ny > h*0.2)) {
+    return 1;
+  }
+  else if((nx > xmin) && (ny < h*0.47) && (nx < xmax) && (ny > h*0.376)){
+    return 2;
+  }
+  else if((nx > xmin) && (ny < h*0.648) && (nx < xmax) && (ny > h*0.55)) {
+    return 3;
+  }
+  else if((nx > xmin) && (ny < h*0.825) && (nx < xmax) && (ny > h*0.725)) {
+    return 4;
+  }
+  else if((nx > xmin) && (nx < xmax) && (ny > h*0.925 )) {
+    return 5;
+  }
+  else{
+    fprintf(stderr, "x%d y%d\n", nx, ny);
+  }
 
   return 0;
 }

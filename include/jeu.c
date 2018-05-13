@@ -21,12 +21,14 @@ int jouer_coup_joueur(int joueur, int **plateau) {
   int r;
   int x = 0, y = 0;
   int valide=0;
-  while(valide==0){
+  while(valide==0 ){
     r = att_souris_clav(&x, &y);
 
     if (r == 1) {
       valide=pose_pion(joueur, x, y, plateau);
     }
+    if(r==-1)
+      valide=-1;
   }
   return r;
 
@@ -40,13 +42,13 @@ int jeu(int hauteur, int largeur, info infos) {
   // int   w  = 16 * h / 9;
   int **plateau;
   int   i;
-  int   x, y, joueur = NOIR;
+  int   joueur = NOIR;
   int   tour = infos.niv1;
   int   prof;
 
   // J1 NOIR
   // J2 BLANC
-  x       = y = 0;
+ 
   plateau = allocation_mem(10, sizeof(int *));
 
   for (i = 0; i < 10; i++) {
@@ -78,25 +80,28 @@ int jeu(int hauteur, int largeur, info infos) {
       r = jouer_coup_joueur(joueur, plateau);
 
       if (r == -1) {
-        free_jeu();
-        exit(1);
+        return 1;
       }
       break;
 
     case 0:
+      attente(1);
       jouer_coup_niveau0(joueur, plateau);
       break;
 
     case 10:
+      attente(1);
       jouer_coup_niveau1(joueur, plateau);
       break;
 
     case 20:
+      attente(1);
       prof = tour - 20;
       jouer_coup_niveau2(joueur, plateau, prof);
       break;
 
     case 30:
+      attente(1);
       prof = tour - 30;
       jouer_coup_niveau3(joueur, plateau);
       break;

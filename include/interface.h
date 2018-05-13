@@ -9,7 +9,7 @@
 #define INTERFACE_H
 #include "jeu.h"
 
-
+void attente(int n);
 // Créer une fenetre de taille hauteur * largeur
 void creer_fenetre(int hauteur,int largeur,info info);
 
