@@ -48,11 +48,11 @@ int evaluation(int couleur, int **plateau){
     tab_strat[2][3]=tab_strat[2][4]=tab_strat[2][5]=tab_strat[2][6]=tab_strat[7][3]=tab_strat[7][4]=tab_strat[7][5]=tab_strat[7][6]=0;
     tab_strat[3][2]=tab_strat[4][2]=tab_strat[5][2]=tab_strat[6][2]=tab_strat[3][7]=tab_strat[4][7]=tab_strat[5][7]=tab_strat[6][7]=0;
     for(i=1; i<=8; i++)
-	for(j=1; j<=8; j++)
+	for(j=1; j<=8; j++){
 	    if(plateau[i][j]==couleur)somme+=tab_strat[i][j];
-    /*for(i=0; i<=10; i++)
-	free(tab_strat[i]);
-	free(tab_strat);*/
+	    else somme-=tab_strat[i][j];
+	}
+    
     return somme;
 }
 

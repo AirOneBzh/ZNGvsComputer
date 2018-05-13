@@ -375,7 +375,7 @@ int cap_diag_bas_gauche(int couleur, int i, int j, int **plateau) {
 int a_voisin(int i, int j, int **plateau) {
   // si on est au bord du plateau
   int vois;
-
+  printf("i=%d, j=%d\n", i, j);
   vois =
     plateau[i - 1][j - 1] +
     plateau[i - 1][j] +
