@@ -152,7 +152,8 @@ int **jouer_coup_niveau1(int couleur, int **plateau){
 		    free(plateau_bis[i]);
 		free(plateau_bis);
 	    }
-    plateau[betterX][betterY]=couleur;
+    //plateau[betterX][betterY]=couleur;
+    pose_pion(couleur, betterX, betterY, plateau);
     return plateau;
 }
   
@@ -176,7 +177,8 @@ int **jouer_coup_niveau2 (int couleur, int **plateau, int prof){
 		    free(plateau_bis[i]);
 		free(plateau_bis);
 	    }
-    plateau[x][y]=couleur; // pose pion
+    //plateau[x][y]=couleur;
+    pose_pion(couleur, x, y, plateau);
     return plateau;
 }
 
@@ -199,7 +201,8 @@ int **jouer_coup_niveau3(int couleur, int **plateau){
 		    free(plateau_bis[i]);
 		free(plateau_bis);
 	    }
-    plateau[betterX][betterY]=couleur;
+    //plateau[betterX][betterY]=couleur;
+    pose_pion(couleur, betterX, betterY, plateau);
     return plateau;
 }
 
@@ -232,7 +235,8 @@ int **jouer_coup_niveau4(int couleur, int **plateau, pile Chemin, pile coup, int
     }//fin for i
     //on vérifie si notre pile de coup possible est vide
     if( est_pile_vide(coup) ){//elle est vide on joue le meilleur coup
-	plateau[betterX][betterY]=couleur;
+	//plateau[betterX][betterY]=couleur;
+	pose_pion(couleur, betterX, betterY, plateau);
     }
     else{ //le plateau n'est pas vide on continue de chercher d'autres possibilités
 	coup=retire_coup(plateau, coup);
