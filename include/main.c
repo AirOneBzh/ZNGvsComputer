@@ -158,6 +158,7 @@ int main(void) {
       free_jeu();
       jeu(hauteur_fenetre(),largeur_fenetre(),infos);
       fprintf(stderr,"Retour Menu\n");
+      resize_fen_menu();
       break;
     case 2:
       system("evince assets/Livret.pdf");
