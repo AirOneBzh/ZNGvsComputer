@@ -180,14 +180,14 @@ int pose_pion(int couleur, int i, int j, int **plateau) {
   }
   if(c_b){
       ibis=i+1;
-      while(plateau[ibis][j]!=couleur){
+      while(plateau[ibis][j]==opposant(couleur)){
 	  plateau[ibis][j]=couleur;
 	  ibis+=1;
       }
   }
   if(c_d){
       jbis=j+1;
-      while(plateau[i][jbis]!=couleur){
+      while(plateau[i][jbis]==opposant(couleur)){
 	  plateau[i][jbis]=couleur;
 	  jbis+=1;
       }
@@ -195,22 +195,49 @@ int pose_pion(int couleur, int i, int j, int **plateau) {
  
   if(c_g){
       jbis=j-1;
-      while(plateau[i][jbis]!=couleur){
+      while(plateau[i][jbis]==opposant(couleur)){
 	  plateau[i][jbis]=couleur;
 	  jbis-=1;
       }
   } 
-  if(c_hd)
-    pose_pion(couleur,i-1,j+1,plateau);
-    
-  if(c_hg)
-   pose_pion(couleur,i-1,j-1,plateau);
+  if(c_hd){
+      ibis=i-1;
+      jbis=j+1;
+      while(plateau[ibis][jbis]==opposant(couleur)){
+	  plateau[ibis][jbis]=couleur;
+	  ibis-=1;
+	  jbis+=1;
+      }
+  }
+  if(c_hg){
+      ibis=i-1;
+      jbis=j-1;
+      while(plateau[ibis][jbis]==opposant(couleur)){
+	  plateau[ibis][jbis]=couleur;
+	  ibis-=1;
+	  jbis-=1;
+      }
+  }
   
-  if(c_bd)
-    pose_pion(couleur,i+1,j+1,plateau);
+  if(c_bd){
+      ibis=i+1;
+      jbis=j+1;
+      while(plateau[ibis][jbis]==opposant(couleur)){
+	  plateau[ibis][jbis]=couleur;
+	  ibis+=1;
+	  jbis+=1;
+      }
+  }
     
-  if(c_bg)
-    pose_pion(couleur,i+1,j-1,plateau);
+  if(c_bg){
+      ibis=i+1;
+      jbis=j-1;
+      while(plateau[ibis][jbis]==opposant(couleur)){
+	  plateau[ibis][jbis]=couleur;
+	  ibis+=1;
+	  jbis-=1;
+      }
+  }
     
   return valide;
 }
