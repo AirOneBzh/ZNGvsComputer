@@ -128,6 +128,7 @@ int jeu(int hauteur, int largeur, info infos) {
 #endif /* ifdef TEST */
   }
   fin(infos,joueur);
+  
   return 1;
 }
 

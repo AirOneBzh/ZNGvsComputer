@@ -242,6 +242,12 @@ void dess_apercu_selec(int x, int y) {
 /* Interface Menu */
 /******************/
 
+void resize_fen_menu(){
+  int dh = MLV_get_desktop_height();
+  int h  = 0.5 * dh;
+  int w  = 3 * h / 4;
+  MLV_change_window_size(w,h);
+}
 
 void input(char *message,char *in){
   char *input;

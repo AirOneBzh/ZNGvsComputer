@@ -44,6 +44,8 @@ void dess_apercu_selec(int x,
 
 
 // interface Menu
+
+void resize_fen_menu();
 void input(char *message,char *in);
 
 void creer_fen_menu();
