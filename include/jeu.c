@@ -64,8 +64,9 @@ int jeu(int hauteur,int largeur, info infos) {
   // fin non atteinte
   //  !est_fini_partie(joueur,plateau)
   while (!est_fini_partie(joueur,plateau)) {
-    dess_plat();
-    dess_info(infos);
+      dess_plat();
+      infos.nb_pions=nb_pions(plateau);
+      dess_info(infos);
     dess_pions(plateau);
     
     fprintf(stderr,"Tour %d",tour);
@@ -153,17 +154,36 @@ int pose_pion(int couleur, int i, int j, int **plateau) {
   int c_bd=cap_diag_bas_droit( couleur,  i,  j,  plateau);
   int c_bg=cap_diag_bas_gauche( couleur,  i,  j,  plateau);
   fprintf(stderr,"ppo%d\n",c_h);
+  int ibis, jbis;
+  if(c_h){
+      ibis=i-1;
+      while(plateau[ibis][j]==opposant(couleur)){
+	  plateau[ibis][j]=couleur;
+	  ibis-=1;
+      }
+  }
+  if(c_b){
+      ibis=i+1;
+      while(plateau[ibis][j]!=couleur){
+	  plateau[ibis][j]=couleur;
+	  ibis+=1;
+      }
+  }
+  if(c_d){
+      jbis=j+1;
+      while(plateau[i][jbis]!=couleur){
+	  plateau[i][jbis]=couleur;
+	  jbis+=1;
+      }
+  }
  
-  if(c_h)
-    pose_pion(couleur,i-1,j,plateau);
-  if(c_b)
-    pose_pion(couleur,i+1,j,plateau);
-  if(c_d)
-    pose_pion(couleur,i,j+1,plateau);
- 
-  if(c_g)
-    pose_pion(couleur,i,j-1,plateau);
- 
+  if(c_g){
+      jbis=j-1;
+      while(plateau[i][jbis]!=couleur){
+	  plateau[i][jbis]=couleur;
+	  jbis-=1;
+      }
+  } 
   if(c_hd)
     pose_pion(couleur,i-1,j+1,plateau);
     
