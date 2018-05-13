@@ -119,12 +119,14 @@ int **jouer_coup_niveau0(int couleur, int **plateau){
     for(i=1; i<=8; i++)
 	for(j=1; j<=8; j++)
 	    if(coup_valide(couleur, i, j, plateau)){
-		empile_coup(i, j, p);
+		p=empile_coup(i, j, p);
 		nb_coup+=1;
 	    }
     nb_coup=rand()%nb_coup;
-    while(nb_coup>0)
+    while(nb_coup>0){
 	p=depile_coup(p);
+	nb_coup-=1;
+    }
     
     plateau[p->x][p->y]=couleur; // pose pion
     return plateau;
