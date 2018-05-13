@@ -133,6 +133,7 @@ int main(void) {
   strcpy(infos.joueur_2,"Joueur 2");
   infos.niv1=-10;
   infos.niv2=0;
+  infos.fen=1;
  creer_fen_menu();
   while (j == 1) {
      
@@ -145,7 +146,7 @@ int main(void) {
 
     // Modifie apparence fenetre
     // taille
-    bouton( 4.5, "Fenetre");
+    bouton( 4.5, infos.fen?"Fenetre":"Plein Ecran");
 
     // modifie Joueur 1 -> IA nom
     bouton(6.25, "Joueurs");
@@ -163,7 +164,8 @@ int main(void) {
       system("evince assets/Livret.pdf");
       break;
     case 3:
-      fprintf(stderr,"Fenetre");
+      infos.fen=1-infos.fen;
+      bouton( 4.5, infos.fen?"Fenetre":"Plein Ecran");
       break;
     case 4:
       joueurs(&infos);

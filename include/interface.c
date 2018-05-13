@@ -59,7 +59,7 @@ int fin(info i,int joueur) {
   sprintf(gagnan,"%s avec %d pions",gagnant==1?i.joueur_1:i.joueur_2,nbp);
   // pour \n dans draw text -> box sinon une seule ligne
   MLV_draw_filled_rectangle(0,0,h,w,MLV_COUL_PLATEAU);
-  MLV_draw_filled_rectangle(0.1*h,0.4*w,0.1*h,0.2*w,gagnant==1?MLV_COLOR_WHITE:MLV_COLOR_BLACK);
+  MLV_draw_filled_rectangle(0.1*h,0.8*w,0.1*h,0.2*w,gagnant==1?MLV_COLOR_WHITE:MLV_COLOR_BLACK);
   MLV_draw_text_with_font(0.1*h,0.4*w,gagnan,font,gagnant==1?MLV_COLOR_BLACK:MLV_COLOR_WHITE);
   MLV_actualise_window();
   MLV_wait_keyboard(NULL,NULL,NULL);
@@ -98,22 +98,33 @@ void dess_info(info i) {
   int h=hauteur_fenetre();
   //int w=largeur_fenetre();
   int c = h * 0.1;
-  char pion_1[5],pion_2[5],pion_t[5];
+  char pion_1[5],pion_2[5],pion_t[5],niv1[5],niv2[5];
   int t_font = c * 0.8;
   sprintf(pion_1,"%d",i.nb_pions[1]);
   sprintf(pion_2,"%d",i.nb_pions[2]);
   sprintf(pion_t,"%d",i.nb_pions[0]);
   MLV_Font *font = MLV_load_font("assets/fonts/pricedown.ttf", t_font);
+  MLV_Font *font2 = MLV_load_font("assets/fonts/pricedown.ttf", t_font*1.5);
 
-  MLV_draw_filled_rectangle(h, 0.5, 7*h/9, h, MLV_COUL_PLATEAU);
-  MLV_draw_text_with_font(1.1*h,0.2*h,"zngOthello",font,MLV_rgba(177,86,149,255));
+  MLV_draw_filled_rectangle(h, 0, 7*h/9, h, MLV_COUL_PLATEAU);
+  MLV_draw_filled_rectangle(1.05*h, 0.06*h, 0.7*h, 0.16*h, MLV_rgba(50,50,50,255));
+  MLV_draw_text_with_font(1.1*h,0.059*h,"zngOthello",font2,MLV_COUL_PLATEAU);
   MLV_draw_text_with_font(1.1*h,0.3*h,i.joueur_1,font,MLV_COLOR_BLACK);
   MLV_draw_text_with_font(1.1*h,0.4*h,i.joueur_2,font,MLV_COLOR_WHITE);
   MLV_draw_text_with_font(1.1*h,0.5*h,"Plateau",font,MLV_rgba(177,86,149,255));
-  
+  // Pions
   MLV_draw_text_with_font(1.5*h,0.3*h,pion_1,font,MLV_COLOR_BLACK);
   MLV_draw_text_with_font(1.5*h,0.4*h,pion_2,font,MLV_COLOR_WHITE);
   MLV_draw_text_with_font(1.5*h,0.5*h,pion_t,font,MLV_rgba(177,86,149,255));
+
+  // Niv IA
+  sprintf(niv1,"%d",i.niv1);
+  sprintf(niv2,"%d",i.niv2);
+  MLV_draw_text_with_font(1.65*h,0.3*h,i.niv1>=0?niv1:"J",font,MLV_COLOR_BLACK);
+  MLV_draw_text_with_font(1.65*h,0.4*h,i.niv2>=0?niv2:"J",font,MLV_COLOR_WHITE);
+  MLV_draw_text_with_font(1.1*h,0.2*h,"Nom",font,MLV_rgba(220,192,97,255));
+  MLV_draw_text_with_font(1.37*h,0.2*h,"Pions",font,MLV_rgba(220,192,97,255));
+  MLV_draw_text_with_font(1.6*h,0.2*h,"Niv",font,MLV_rgba(220,192,97,255));
   
   MLV_actualise_window();
   // 
@@ -255,9 +266,9 @@ void resize_fen_menu(){
 
 void input(char *message,char *in){
   char *input;
-  int h=hauteur_fenetre();
-  int w=largeur_fenetre();
-  MLV_wait_input_box(0.1*w,0.3*h,
+  int h=MLV_get_window_height();
+  int w=MLV_get_window_width();
+  MLV_wait_input_box(0.1*w,0.4*h,
 		     0.8*w,0.25*h,
 		     MLV_COLOR_RED,MLV_COLOR_GREEN,MLV_COLOR_BLACK,
 		     message,&input);

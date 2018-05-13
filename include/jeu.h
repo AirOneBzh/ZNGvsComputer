@@ -24,6 +24,7 @@ typedef struct {
   char joueur_2[20];
   int niv2;
   int *nb_pions;
+  int fen;
 }info;
 
 //avoir la couleur de l'ennemi
