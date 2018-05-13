@@ -133,7 +133,7 @@ int main(void) {
   strcpy(infos.joueur_1,"Joueur 1");
   strcpy(infos.joueur_2,"Joueur 2");
   infos.niv1=-1;
-  infos.niv2=-1;
+  infos.niv2=0;
   creer_fen_menu();
   while (j == 1) {
     clean_fen_menu();

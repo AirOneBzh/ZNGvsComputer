@@ -17,7 +17,21 @@
 #include "MLV/MLV_all.h"
 #include "IA.h"
 
-void jouer_coup_joueur(){}
+int jouer_coup_joueur(){
+  int r;
+  r = att_souris_clav(&x, &y);
+  if(r==0){
+    dess_apercu_selec(x, y);
+  }else if(r==1){
+    if (pose_pion(joueur, x, y, plateau) == 1) {
+    }
+    else {
+      //pose_pion_fail()
+    }
+  }
+  else return r;
+  // resultat de att souris
+}
 
 int jeu(int hauteur,int largeur, info infos) {
   // int   dh = hauteur_fenetre();
@@ -56,7 +70,11 @@ int jeu(int hauteur,int largeur, info infos) {
     switch(tour){
       /* TODO */      
     case -10:
-      jouer_coup_joueur();
+      r=jouer_coup_joueur();
+      if(r==-1){
+	free_jeu();
+	exit(1);
+      }
       break;
     case 0:
       jouer_coup_niveau0(joueur,plateau);
@@ -85,43 +103,7 @@ int jeu(int hauteur,int largeur, info infos) {
     else{
       tour=infos.niv1;
     }
-    ////////////
-
-          /* TODO -> jouer_coup_joueur */
-    r = att_souris_clav(&x, &y);
-    
-    // resultat de att souris
-    switch (r) {
-      // cadre de selection
-    case 0:
-      dess_apercu_selec(x, y);
-      break;
-      
-      // clic souris ou entrée
-    case 1:
-
-      if (pose_pion(joueur, x, y, plateau) == 1) {
-	// jb numero du joueur qui doit jouer 1 ou 2
-	joueur=opposant(joueur);
-      }
-      else {
-	// pose_pion(impo)
-      }
-      break;
-      
-      // touche s -> save
-    case -2:
-
-      // save(plateau);
-      break;
-
-      // save puis Quit
-    case -1:
-
-      // save(tab)
-      free_jeu();
-      exit(0);
-    }
+ 
     
     dess_plat();
     dess_info(infos);
