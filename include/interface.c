@@ -47,14 +47,19 @@ int fin(info i,int joueur) {
   MLV_Font *font = MLV_load_font("assets/fonts/pricedown.ttf", t_font);
   char gagnan[50];
   int gagnant;
-  if(i.nb_pions[1]<i.nb_pions[2])
+  int nbp;
+  if(i.nb_pions[1]<i.nb_pions[2]){
     gagnant=2;
-  else
+    nbp=64-i.nb_pions[1];
+  }
+  else{
     gagnant=1;
-  sprintf(gagnan,"%s avec %d pions",gagnant==1?i.joueur_1:i.joueur_2,i.nb_pions[gagnant]);
+    nbp=64-i.nb_pions[2];
+  }
+  sprintf(gagnan,"%s avec %d pions",gagnant==1?i.joueur_1:i.joueur_2,nbp);
   // pour \n dans draw text -> box sinon une seule ligne
   MLV_draw_filled_rectangle(0,0,h,w,MLV_COUL_PLATEAU);
-   MLV_draw_filled_rectangle(0.1*h,0.4*w,h,w,gagnant==1?MLV_COLOR_WHITE:MLV_COLOR_BLACK);
+  MLV_draw_filled_rectangle(0.1*h,0.4*w,0.1*h,0.2*w,gagnant==1?MLV_COLOR_WHITE:MLV_COLOR_BLACK);
   MLV_draw_text_with_font(0.1*h,0.4*w,gagnan,font,gagnant==1?MLV_COLOR_BLACK:MLV_COLOR_WHITE);
   MLV_actualise_window();
   MLV_wait_keyboard(NULL,NULL,NULL);
@@ -123,7 +128,6 @@ void dess_pions(int **tab) {
   int i, j;
   int h = hauteur_fenetre();
   int c = h / 18;
-  
   for (j = 1; j <= 8; j++) {
     for (i = 1; i <= 8; i++) {
       if (tab[j][i] == BLANC) {

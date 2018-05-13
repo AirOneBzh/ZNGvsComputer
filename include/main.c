@@ -53,21 +53,20 @@ void change_joueuria(int *niv){
   if(*niv==20){
     correct=0;
     while(correct==0){
-      input("    Profondeur IA (1->9)   ",in);
+      input("    Profondeur IA (3->9)   ",in);
      for(i=0;i<strlen(in);i++){
        if(!isdigit(in[i])){
 	correct=0;
        }
        else{
 	 correct=1;
-	 fprintf(stderr,"c1");
        }
     }
       if(correct==1){
 	prof=atoi(in);
 	*niv+=atoi(in);
 	fprintf(stderr,"%d",*niv);
-	if(prof<1 || prof>9){
+	if(prof<3 || prof>9){
 	  correct=0;
 	}
       }
@@ -82,10 +81,10 @@ void joueurs(info *info){
   
   while(q==0){
     
-    sprintf(btn1,"Nom %s:",info->joueur_1);
-    sprintf(btn2,"J / IA : %d",info->niv1);
-    sprintf(btn3,"Nom %s:",info->joueur_2);
-    sprintf(btn4,"J / IA : %d",info->niv2);
+    sprintf(btn1,"%s:",info->joueur_1);
+    sprintf(btn2,"Niveau : %d",info->niv1);
+    sprintf(btn3,"%s:",info->joueur_2);
+    sprintf(btn4,"Niveau : %d",info->niv2);
   
 
     bouton(   1, btn1);

@@ -94,7 +94,14 @@ int jeu(int hauteur, int largeur, info infos) {
       plateau=jouer_coup_niveau1(joueur, plateau);
       break;
 
-    case 20:
+    
+    case 23:
+    case 24:
+    case 25:
+    case 26:
+    case 27:
+    case 28:
+    case 29:
       attente(1);
       prof = tour - 20;
       plateau=jouer_coup_niveau2(joueur, plateau, prof);
