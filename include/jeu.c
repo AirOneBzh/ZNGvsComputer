@@ -15,8 +15,9 @@
 #include "interface.h"
 #include "jeu.h"
 #include "MLV/MLV_all.h"
+#include "IA.h"
 
-
+void jouer_coup_joueur(){}
 
 int jeu(int hauteur,int largeur, info infos) {
   // int   dh = hauteur_fenetre();
@@ -26,8 +27,9 @@ int jeu(int hauteur,int largeur, info infos) {
   int **plateau;
   int   i;
   int   x, y, joueur = NOIR;
-
-
+  int tour=infos.niv1;
+  // J1 NOIR
+  // J2 BLANC
   x       = y = 0;
   plateau = allocation_mem(10, sizeof(int *));
 
@@ -37,60 +39,94 @@ int jeu(int hauteur,int largeur, info infos) {
 
   // si menu load > tab = fich sinon init_pions
   init_pions(plateau);
-  
+  infos.nb_pions=nb_pions(plateau);
   // creer fenetre
   creer_fenetre(hauteur,largeur, infos);
 
   //dess_
   dess_pions(plateau);
-  dess_apercu_selec(0, 0);
   
   int r;
 
   // fin non atteinte
   //  !est_fini_partie(joueur,plateau)
   while (!est_fini_partie(joueur,plateau)) {
-   
-    r = att_souris_clav(&x, &y);
+    
+    switch(tour){
+      /* TODO */      
+    case -1:
+      jouer_coup_joueur();
+      break;
+    case 0:
+      jouer_coup_niveau0(joueur,plateau);
+      break;
+    case 1:
+      jouer_coup_niveau1(joueur,plateau);
+      break;
+    case 2:
+      // change profondeur
+      jouer_coup_niveau2(joueur,plateau,3);
+      break;
+    case 3:
+      jouer_coup_niveau3(joueur,plateau);
+      break;
+    case 4:
+      //jouer_coup_niveau4(joueur,plateau);
+      break;
 
+      /* TODO */
+    }
+    joueur = opposant(joueur);
+    if(tour==infos.niv1){
+      tour=infos.niv2;
+    }
+    else{
+      tour=infos.niv1;
+    }
+    ////////////
+
+          /* TODO -> jouer_coup_joueur */
+    r = att_souris_clav(&x, &y);
+    
     // resultat de att souris
     switch (r) {
       // cadre de selection
-      case 0:
+    case 0:
       dess_apercu_selec(x, y);
       break;
-
+      
       // clic souris ou entrée
-      case 1:
+    case 1:
 
       if (pose_pion(joueur, x, y, plateau) == 1) {
-        // jb numero du joueur qui doit jouer 1 ou 2
-	  joueur=opposant(joueur);
+	// jb numero du joueur qui doit jouer 1 ou 2
+	joueur=opposant(joueur);
       }
       else {
-        // pose_pion(impo)
+	// pose_pion(impo)
       }
       break;
-
+      
       // touche s -> save
-      case -2:
+    case -2:
 
       // save(plateau);
       break;
 
       // save puis Quit
-      case -1:
+    case -1:
 
       // save(tab)
       free_jeu();
       exit(0);
     }
+    
     dess_plat();
     dess_info(infos);
     dess_pions(plateau);
-     dess_apercu_selec(x, y);
+    dess_apercu_selec(x, y);
     
-    #ifdef TEST
+#ifdef TEST
     f = 1;
     #endif /* ifdef TEST */
   }

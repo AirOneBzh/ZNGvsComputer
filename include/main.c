@@ -15,38 +15,70 @@
 #include "interface.h"
 #include <string.h>
 
+void change_nom(char *nom){
+  int correct=0;
+  while(correct==0){
+    correct=input_char(nom);
+    if(strlen(nom)<2 && strlen(nom)>8){
+      correct=0;
+    }
+  }
+}
+
+void change_joueuria(int *niv){
+  int correct=0;
+  while(correct==0){
+    correct=input_int(niv);
+    if(*niv>4 || *niv<-1){
+      correct=0;
+    }
+  }
+}
+
 void joueurs(info *info){
   clean_fen_menu();
-  bouton(   1, "Nom Joueur 1:");
+  char btn1[25], btn2[25],btn3[25],btn4[25];
+  int c,q=0;
+  
+  while(q==0){
+    
+    sprintf(btn1,"Nom %s:",info->joueur_1);
+    sprintf(btn2,"J / IA : %d",info->niv1);
+    sprintf(btn3,"Nom %s:",info->joueur_2);
+    sprintf(btn4,"J / IA : %d",info->niv2);
+  
 
-  // affiche les règles
-  bouton(2.75, "Joueur / IA ");
+    bouton(   1, btn1);
 
-  // Modifie apparence fenetre
-  // taille
-  bouton( 4.5, "Nom Joueur 2:");
+    // change nom j1
+    bouton(2.75, btn2);
 
-  // modifie Joueur 1 -> IA nom
-  bouton(6.25, "Joueur / IA");
-  int c = att_souris_menu(NULL);
+    // change joueur / IA 1
+    bouton( 4.5, btn3);
+
+    // modifie Joueur 1 -> IA nom
+    bouton(6.25, btn4);
+
+    c = att_souris_menu(NULL);
     switch(c){
     case 1:
-      
+      change_nom(info->joueur_1);
       break;
     case 2:
-      
+      change_joueuria(&info->niv1);
       break;
     case 3:
-      fprintf(stderr,"Fenetre");
+      change_nom(info->joueur_2);
       break;
     case 4:
-     
+      change_joueuria(&info->niv2);
       break;
     case 5:
-      exit(EXIT_SUCCESS);
+      q=1;
     default:
       break;
     }
+  }
 }
 
 

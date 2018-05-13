@@ -87,11 +87,28 @@ void dess_plat() {
 }
 
 void dess_info(info i) {
-    int h=hauteur_fenetre();
-    int w=largeur_fenetre();
-    MLV_draw_filled_rectangle(0, h, h, w - h, MLV_COLOR_RED);
-    MLV_actualise_window();
-    // MLV_draw_text
+  int h=hauteur_fenetre();
+  int w=largeur_fenetre();
+  int c = h * 0.1;
+  char pion_1[5],pion_2[5],pion_t[5];
+  int t_font = c * 0.8;
+  sprintf(pion_1,"%d",i.nb_pions[1]);
+  sprintf(pion_2,"%d",i.nb_pions[2]);
+  sprintf(pion_t,"%d",i.nb_pions[0]);
+  MLV_Font *font = MLV_load_font("assets/fonts/pricedown.ttf", t_font);
+  fprintf(stderr,"hauteur %d largeur %d ",h,w);
+  MLV_draw_filled_rectangle(h, 0.5, 7*h/9, h, MLV_COUL_PLATEAU);
+  MLV_draw_text_with_font(1.1*h,0.2*h,"zngOthello",font,MLV_rgba(177,86,149,255));
+  MLV_draw_text_with_font(1.1*h,0.3*h,i.joueur_1,font,MLV_COLOR_BLACK);
+  MLV_draw_text_with_font(1.1*h,0.4*h,i.joueur_2,font,MLV_COLOR_WHITE);
+  MLV_draw_text_with_font(1.1*h,0.5*h,"Plateau",font,MLV_rgba(177,86,149,255));
+  
+  MLV_draw_text_with_font(1.5*h,0.3*h,pion_1,font,MLV_COLOR_BLACK);
+  MLV_draw_text_with_font(1.5*h,0.4*h,pion_2,font,MLV_COLOR_WHITE);
+  MLV_draw_text_with_font(1.5*h,0.5*h,pion_t,font,MLV_rgba(177,86,149,255));
+  
+  MLV_actualise_window();
+  // 
 }
 
 void free_jeu() {
@@ -129,14 +146,16 @@ void dess_pions(int **tab) {
 }
 
 void pose_pion_fail(int x, int y) {
-  int h = MLV_get_window_height();
-  int c = h / 18;
-
+  int c = MLV_get_window_height() / 18;
+  fprintf(stderr,"aprercu %d %d\n",x,y);
+  if(x<8 && x>=0 && y<8 && y>=0){
   MLV_draw_rectangle(c * (2 * x + 1),
                      c * (2 * y + 1),
-                     2 * c,
-                     2 * c,
+                     1.8 * c,
+                     1.8 * c,
                      MLV_COLOR_RED);
+  MLV_actualise_window();
+  }
 }
 
 int att_souris_clav(int *x, int *y) {
@@ -205,18 +224,50 @@ int att_souris_clav(int *x, int *y) {
 // Carré de couleur selection clavier
 void dess_apercu_selec(int x, int y) {
   int c = MLV_get_window_height() / 18;
-
+  fprintf(stderr,"aprercu %d %d\n",x,y);
+  if(x<8 && x>=0 && y<8 && y>=0){
   MLV_draw_rectangle(c * (2 * x + 1),
                      c * (2 * y + 1),
-                     2 * c,
-                     2 * c,
-                     MLV_COLOR_RED);
+                     1.8 * c,
+                     1.8 * c,
+                     MLV_COLOR_BLACK);
   MLV_actualise_window();
+  }
 }
 
 /******************/
 /* Interface Menu */
 /******************/
+
+int input_char(char *c){
+  int h=MLV_get_window_height();
+  int w=MLV_get_window_width();
+  char *input;
+  MLV_wait_input_box(0.1*w,0.3*h,
+		     0.8*w,0.25*h,
+		     MLV_COLOR_RED,MLV_COLOR_GREEN,MLV_COLOR_BLACK,
+		     "      Nom joueur   ",&input);
+  strcpy(c,input);
+  
+  return 1;
+}
+
+int input_int(int *x){
+  int h=MLV_get_window_height();
+  int w=MLV_get_window_width();
+  char *input;
+  int i;
+  MLV_wait_input_box(0.1*w,0.3*h,
+		     0.8*w,0.25*h,
+		     MLV_COLOR_RED,MLV_COLOR_GREEN,MLV_COLOR_BLACK,
+		     "     Joueur (-1) IA (niv (0->4)   ",&input);
+  for(i=0;i<strlen(input);i++){
+    if(!isdigit(input[i]))
+      return 0;
+  }
+  *x=atoi(input);
+  return 1;
+}
 
 void creer_fen_menu() {
   int dh = MLV_get_desktop_height();
@@ -243,7 +294,7 @@ void bouton(float x, char *text) {
 
   MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, MLV_COLOR_BLACK);
   MLV_draw_filled_rectangle(c, c * (x + 1), w - 2 * c, c, MLV_COLOR_WHITE);
-  MLV_draw_text_with_font(2 * c, c * (x + 1), text, font, MLV_COLOR_BLACK);
+  MLV_draw_text_with_font(1.5 * c, c * (x + 1), text, font, MLV_COLOR_BLACK);
   MLV_actualise_window();
 }
 
@@ -253,7 +304,6 @@ int att_souris_menu(int *x) {
   MLV_wait_keyboard_or_mouse(NULL, NULL, NULL, &nx, &ny);
 
   if ((nx < 466) && (ny < 217) && (nx > 73) && (ny > 145)) {
-    *x = 1;
     return 1;
   }
   else if((nx < 466) && (ny < 339) && (nx > 73) && (ny > 271)){
