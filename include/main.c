@@ -14,23 +14,63 @@
 #include "jeu.h"
 #include "interface.h"
 #include <string.h>
+#include <ctype.h>
 
 void change_nom(char *nom){
   int correct=0;
   while(correct==0){
-    correct=input_char(nom);
-    if(strlen(nom)<2 && strlen(nom)>8){
+    input("Nom joueur",nom);
+    if(strlen(nom)<2 || strlen(nom)>8){
       correct=0;
     }
+    else
+      correct=1;
   }
 }
 
 void change_joueuria(int *niv){
   int correct=0;
+  char in[15];
+  int i,prof;
   while(correct==0){
-    correct=input_int(niv);
-    if(*niv>4 || *niv<-1){
-      correct=0;
+    input("    Joueur (-1) / IA (0->4)   ",in);
+    fprintf(stderr,"%s",in);
+    for(i=0;i<strlen(in);i++){
+      if(!isdigit(in[i])){
+	correct=0;
+      }
+      else{
+	correct=1;
+      }
+    }
+    if(correct==1){
+      *niv=atoi(in)*10;
+      if(*niv>40  || *niv<-10){
+	correct=0;
+      }
+    }
+  }
+  if(*niv==20 || *niv==30){
+    correct=0;
+    while(correct==0){
+      input("    Profondeur IA (1->9)   ",in);
+     for(i=0;i<strlen(in);i++){
+       if(!isdigit(in[i])){
+	correct=0;
+       }
+       else{
+	 correct=1;
+	 fprintf(stderr,"c1");
+       }
+    }
+      if(correct==1){
+	prof=atoi(in);
+	*niv+=atoi(in);
+	fprintf(stderr,"%d",*niv);
+	if(prof<1 || prof>9){
+	  correct=0;
+	}
+      }
     }
   }
 }
