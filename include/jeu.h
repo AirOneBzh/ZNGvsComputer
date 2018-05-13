@@ -29,6 +29,8 @@ typedef struct {
 
 //avoir la couleur de l'ennemi
 int opposant(int couleur);
+// avoir niveau IA/J ennemi
+int change_tour(int tour, info i);
 
 //Description jeu
 int jeu();
@@ -59,6 +61,10 @@ int coup_valide(int couleur, int i, int j, int **plateau);
 //retourne le nb de pions [0]=nbdeblancs [1]=nbdenoirs
 int *nb_pions(int **plateau);
 
-//v"rification fin de partie avec couleur le tour du jouer
-int est_fini_partie(int couleur, int **plateau);
+//vérification fin de partie avec couleur le tour du joueur
+int continue_partie(int couleur, int **plateau);
+// 1 les deux peuvent jouer
+// 2 couleur peux jouer, pas opposant
+// 3 opposant peux jouer mais pas couleur
+// 0 aucun ne peut jouer -> fin partie
 #endif /* end of include guard: _JEU_H_  */

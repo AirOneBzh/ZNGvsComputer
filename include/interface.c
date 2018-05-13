@@ -118,8 +118,8 @@ void dess_info(info i) {
   MLV_draw_text_with_font(1.5*h,0.5*h,pion_t,font,MLV_rgba(177,86,149,255));
 
   // Niv IA
-  sprintf(niv1,"%d",i.niv1);
-  sprintf(niv2,"%d",i.niv2);
+  sprintf(niv1,"%d",i.niv1/10);
+  sprintf(niv2,"%d",i.niv2/10);
   MLV_draw_text_with_font(1.65*h,0.3*h,i.niv1>=0?niv1:"J",font,MLV_COLOR_BLACK);
   MLV_draw_text_with_font(1.65*h,0.4*h,i.niv2>=0?niv2:"J",font,MLV_COLOR_WHITE);
   MLV_draw_text_with_font(1.1*h,0.2*h,"Nom",font,MLV_rgba(220,192,97,255));

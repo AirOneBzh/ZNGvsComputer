@@ -42,7 +42,7 @@ int jeu(int hauteur, int largeur, info infos) {
   // int   c  = h / 18;
   // int   w  = 16 * h / 9;
   int **plateau;
-  int   i;
+  int   i,p;
   int   joueur = NOIR;
   int   tour = infos.niv1;
   int   prof;
@@ -68,7 +68,12 @@ int jeu(int hauteur, int largeur, info infos) {
 
   // fin non atteinte
   //  !est_fini_partie(joueur,plateau)
-  while (!est_fini_partie(joueur,plateau)) {
+  while (continue_partie(joueur,plateau)) {
+    p=continue_partie(joueur,plateau);
+    if(p == 3) {
+      joueur=opposant(joueur);
+      tour=change_tour(tour,infos);
+    }	
     dess_plat();
     infos.nb_pions=nb_pions(plateau);
     dess_info(infos);
@@ -76,9 +81,9 @@ int jeu(int hauteur, int largeur, info infos) {
 
 
     switch (tour) {
-    /* TODO */
+      /* TODO */
     case -10:
-	r = jouer_coup_joueur(joueur, plateau);
+      r = jouer_coup_joueur(joueur, plateau);
 
       if (r == -1) {
         return 1;
@@ -115,29 +120,31 @@ int jeu(int hauteur, int largeur, info infos) {
       break;
 
     case 40:
-	attente(1);
-	plateau=jouer_coup_niveau4(joueur, plateau);
-	break;
-
+      attente(1);
+      plateau=jouer_coup_niveau4(joueur, plateau);
+      break;
+	
       /* TODO */
     }
     
     joueur = opposant(joueur);
-    if(tour==infos.niv1){
-	tour=infos.niv2;
-    }
-    else{
-	tour=infos.niv1;
-    }
-
-       
+    tour=change_tour(tour,infos);
+    
+    
 #ifdef TEST
-       f = 1;
+    f = 1;
 #endif /* ifdef TEST */
   }
   fin(infos,joueur);
   
   return 1;
+}
+  
+int change_tour(int tour,info i){
+  if(tour == i.niv1)
+    return i.niv2;
+  else
+    return i.niv1;
 }
 
 int opposant(int couleur) {
@@ -439,22 +446,25 @@ int* nb_pions(int **plateau) {
   return blanc_noir;
 }
 
-int est_fini_partie(int couleur, int **plateau) {
+int continue_partie(int couleur, int **plateau) {
 
   int *etat = nb_pions(plateau);
 
   // fprintf(stderr,"nb pions %d",etat[0]);
   int i, j;
-  int c, b;
+  int c=0, b=0;
 
-  if (etat[0] == 64) return 1;
+  if (etat[0] == 64) return 0;
 
   for (i = 1; i <= 8; i++)
     for (j = 1; j <= 8; j++) {
-      c = coup_valide(couleur, i, j, plateau);
-      b = coup_valide(opposant(couleur), i, j, plateau);
+      c += coup_valide(couleur, i, j, plateau);
+      b += coup_valide(opposant(couleur), i, j, plateau);
       // fprintf(stderr,"i %d j %d coup valide %d\n",i,j,c);
-      if (c || b) return 0;
     }
-  return 1;
+  if (c && b) return 1;
+  else if(c && !b) return 2;
+  else if(!c && b) return 3;
+  //(!c && !b)
+  else return 0;
 }
