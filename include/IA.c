@@ -60,7 +60,7 @@ int minmax(int couleur, int min, int **plateau, int prof, liste l)
 {//A LA FIN DU PROG ON CONNAIT LA NOTE POUR UN COUP choisie
     int i, j;
     int **plateau_bis=copie_plateau(plateau);
-    if(prof == 0 || !est_fini_partie(couleur, plateau_bis))
+    if(prof == 0 || !continue_partie(couleur, plateau_bis))
 	l=inserer_element_liste(l, evaluation(couleur, plateau));
 
     else{
