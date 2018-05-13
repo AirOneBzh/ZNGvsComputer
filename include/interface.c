@@ -166,7 +166,7 @@ int att_souris_clav(int *x, int *y) {
   int nx = 0;
   int ny = 0;
 
-  kom = MLV_wait_keyboard_or_mouse(&key, NULL, NULL, &nx, &ny);
+  kom = MLV_wait_keyboard_or_mouse(&key, NULL, NULL, &ny, &nx);
 
   if (kom == MLV_KEY) {
     switch (key) {
@@ -203,8 +203,8 @@ int att_souris_clav(int *x, int *y) {
     }
   }
   else if (kom == MLV_MOUSE_BUTTON) {
-    *x = (nx - c) / (2 * c);
-    *y = (ny - c) / (2 * c);
+    *x = (nx - c) / (2 * c) +1 ;
+    *y = (ny - c) / (2 * c) +1 ;
     return 1;
   }
   else {

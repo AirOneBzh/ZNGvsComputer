@@ -19,14 +19,14 @@
 
 int jouer_coup_joueur(int joueur,int **plateau){
   int r;
-  int x,y;
+  int x=0,y=0;
   r = att_souris_clav(&x, &y);
-  fprintf(stderr,"rrrrr%d",r);
- if(r==1){
+  fprintf(stderr,"rrrrr %d %d",x,y);
+  if(r==1){
     pose_pion(joueur, x, y, plateau);
     
   }
-  
+ 
   return r;
   // resultat de att souris
 }
@@ -139,12 +139,11 @@ void init_pions(int **plateau) {
 int pose_pion(int couleur, int i, int j, int **plateau) {
   //int acc;
   int valide=coup_valide(couleur,i,j,plateau);
-  fprintf(stderr,"ppo%d\n",valide);
-  if (valide)
-    fprintf(stderr,"ppo%d",valide);
-    
-  else return 0;
-  //plateau[i][j]=couleur;
+  fprintf(stderr,"valide %d \n",valide);
+   if (valide)
+        plateau[i][j]=couleur;
+   //else return 0;
+  //
   int c_h=cap_haut( couleur,  i, j,  plateau);
   int c_b=cap_bas( couleur,  i,  j,  plateau);
   int c_d=cap_droit( couleur,  i,  j,  plateau);
@@ -153,33 +152,30 @@ int pose_pion(int couleur, int i, int j, int **plateau) {
   int c_hg=cap_diag_haut_gauche( couleur,  i,  j,  plateau);
   int c_bd=cap_diag_bas_droit( couleur,  i,  j,  plateau);
   int c_bg=cap_diag_bas_gauche( couleur,  i,  j,  plateau);
+  fprintf(stderr,"ppo%d\n",c_h);
  
+  if(c_h)
+    pose_pion(couleur,i-1,j,plateau);
+  if(c_b)
+    pose_pion(couleur,i+1,j,plateau);
+  if(c_d)
+    pose_pion(couleur,i,j+1,plateau);
+ 
+  if(c_g)
+    pose_pion(couleur,i,j-1,plateau);
+ 
+  if(c_hd)
+    pose_pion(couleur,i-1,j+1,plateau);
+    
+  if(c_hg)
+   pose_pion(couleur,i-1,j-1,plateau);
   
-  /*switch(1){
-  case c_h:
-    return 1+pose_pion(couleur,i-1,j,plateau);
-    break;
-  case c_b :
-    return 1+pose_pion(couleur,i+1,j,plateau);
-    break;
-  case  c_d :
-    return 1+pose_pion(couleur,i,j+1,plateau);
-    break;
-  case  c_g :
-    return 1+pose_pion(couleur,i,j-1,plateau);
-    break;
-  case c_hd :
-    return 1+pose_pion(couleur,i-1,j+1,plateau);
-    break;
-  case  c_hg :
-    return 1+pose_pion(couleur,i-1,j-1,plateau);
-    break;
-  case c_bd :
-    return 1+pose_pion(couleur,i+1,j+1,plateau);
-    break;
-  case  c_bg:
-    return 1+pose_pion(couleur,i+1,j-1,plateau);
-    }*/
+  if(c_bd)
+    pose_pion(couleur,i+1,j+1,plateau);
+    
+  if(c_bg)
+    pose_pion(couleur,i+1,j-1,plateau);
+    
   return valide;
 }
 
