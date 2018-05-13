@@ -11,6 +11,19 @@ int est_pile_vide(pile p){
     return 0;
 }
 
+pile empile_coup(int i, int j, pile p){
+    pile pnew=(pile)allocation_mem(1, sizeof(struct_cellule));
+    pnew->x=i;
+    pnew->y=j;
+    pnew->suivant=p;
+    return pnew;
+}
+
+pile depile_coup(pile p){
+    pile pnew=p->suivant;
+    free(p);
+    return pnew;
+}
 pile ajoute_coup(int color, int i, int j, int **plateau, pile P){
     //on ajoute le coup sur la pile
     pile pnew=(pile)allocation_mem(1, sizeof(struct_cellule));

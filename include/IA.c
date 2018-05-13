@@ -113,15 +113,21 @@ int alpha_beta(int couleur, int min, int **plateau, int alpha, int beta, liste l
 }
 int **jouer_coup_niveau0(int couleur, int **plateau){
     int i, j;
+    int nb_coup=0;
+    pile p=pile_vide();
     srand(time(NULL));
-    i=1+rand()%8;
-    j=1+rand()%8;
-    if(coup_valide(couleur, i, j, plateau)){
-	plateau[i][j]=couleur; // pose pion
-	return plateau;
-    }
-     
-    return jouer_coup_niveau0(couleur, plateau);
+    for(i=1; i<=8; i++)
+	for(j=1; j<=8; j++)
+	    if(coup_valide(couleur, i, j, plateau)){
+		empile_coup(i, j, p);
+		nb_coup+=1;
+	    }
+    nb_coup=rand()%nb_coup;
+    while(nb_coup>0)
+	p=depile_coup(p);
+    
+    plateau[p->x][p->y]=couleur; // pose pion
+    return plateau;
 }
 
 int **jouer_coup_niveau1(int couleur, int **plateau){
@@ -140,6 +146,9 @@ int **jouer_coup_niveau1(int couleur, int **plateau){
 		    betterY=j;
 		    note = minmax(opposant(couleur),opposant(couleur), plateau_bis, prof-1, l);
 		}
+		for(i=1; i<=10; i++)
+		    free(plateau_bis[i]);
+		free(plateau_bis);
 	    }
     plateau[betterX][betterY]=couleur;
     return plateau;
