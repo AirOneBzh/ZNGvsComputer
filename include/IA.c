@@ -3,16 +3,16 @@
 #include <time.h>
 #include <limits.h>
 #include "IA.h"
+#include "allocation.h"
 #include <string.h>
 #define COEF 500
 #define INF INT_MAX
 
 int **copie_plateau(int **plateau){
     int i, **plateau_bis=(int **)allocation_mem(10, sizeof(int *));
-    
     for(i=0; i<10; i++){
 	plateau_bis[i]=(int *)allocation_mem(10, sizeof(int));
-	memcpy (plateau_bis[i], plateau[i], 10*sizeof(int));
+	memcpy(plateau_bis[i], plateau[i], 10*sizeof(int));
     }
     return plateau_bis;
 }
@@ -50,9 +50,9 @@ int evaluation(int couleur, int **plateau){
     for(i=1; i<=8; i++)
 	for(j=1; j<=8; j++)
 	    if(plateau[i][j]==couleur)somme+=tab_strat[i][j];
-    for(i=0; i<=10; i++)
+    /*for(i=0; i<=10; i++)
 	free(tab_strat[i]);
-    free(tab_strat);
+	free(tab_strat);*/
     return somme;
 }
 
@@ -142,15 +142,16 @@ int **jouer_coup_niveau1(int couleur, int **plateau){
 	for(j=1; j<=8; j++)
 	    if(coup_valide(couleur, i, j, plateau)){//stocker les notes
 		plateau_bis=copie_plateau(plateau);
-		plateau_bis[i][j]=couleur;
+		//plateau_bis[i][j]=couleur;
+		pose_pion(couleur, i, j, plateau_bis);
 		if( minmax(opposant(couleur),opposant(couleur), plateau_bis, prof-1, l) > note ){
 		    betterX=i;
 		    betterY=j;
 		    note = minmax(opposant(couleur),opposant(couleur), plateau_bis, prof-1, l);
 		}
-		for(i=1; i<=10; i++)
+		/*for(i=1; i<=10; i++)
 		    free(plateau_bis[i]);
-		free(plateau_bis);
+		    free(plateau_bis);*/
 	    }
     //plateau[betterX][betterY]=couleur;
     pose_pion(couleur, betterX, betterY, plateau);

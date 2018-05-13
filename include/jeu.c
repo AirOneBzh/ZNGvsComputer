@@ -435,16 +435,16 @@ int est_fini_partie(int couleur, int **plateau) {
 
   // fprintf(stderr,"nb pions %d",etat[0]);
   int i, j;
-  int c;
+  int c, b;
 
   if (etat[0] == 64) return 1;
 
   for (i = 1; i <= 8; i++)
     for (j = 1; j <= 8; j++) {
       c = coup_valide(couleur, i, j, plateau);
-
+      b = coup_valide(opposant(couleur), i, j, plateau);
       // fprintf(stderr,"i %d j %d coup valide %d\n",i,j,c);
-      if (c) return 0;
+      if (c || b) return 0;
     }
   return 1;
 }
